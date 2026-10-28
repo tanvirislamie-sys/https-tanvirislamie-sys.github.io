@@ -1,0 +1,2246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tanvir Islam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<meta name="description" content="Tanvir Islam, final-year Industrial &amp; Production Engineering student at AUST, Dhaka. Supply chain risk modelling, lean process improvement, CAD and FEA, and a 3D-printed auxetic interference screw thesis.">
+<meta name="author" content="Tanvir Islam">
+<meta name="theme-color" content="#15181c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tanvir Islam · Industrial &amp; Production Engineer">
+<meta property="og:description" content="Tanvir Islam, final-year Industrial &amp; Production Engineering student at AUST, Dhaka. Supply chain risk modelling, lean process improvement, CAD and FEA, and a 3D-printed auxetic interference screw thesis.">
+<meta property="og:image" content="screw-print.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315181c'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%23f28c28'/%3E%3C/svg%3E">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body><style>
+  :root {
+    color-scheme: dark;
+    --ink: #15181c;
+    --panel: rgba(27, 31, 37, 0.84);
+    --line: rgba(205, 215, 230, 0.13);
+    --text: #e8ecf1;
+    --muted: #98a2af;
+    --amber: #f28c28;
+    --cyan: #7cb6ff;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --gutter: clamp(16px, 5vw, 72px);
+  }
+  html { background: var(--ink); scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--text); font: 16px/1.6 var(--body); overflow-x: hidden; }
+  ::selection { background: var(--amber); color: var(--ink); }
+
+  #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+  .blueprint { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .45;
+    background-image:
+      linear-gradient(rgba(170,195,230,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(170,195,230,.05) 1px, transparent 1px),
+      linear-gradient(rgba(170,195,230,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(170,195,230,.025) 1px, transparent 1px);
+    background-size: 160px 160px, 160px 160px, 32px 32px, 32px 32px; }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* ---------- chrome ---------- */
+  header.bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gutter) 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .mark { color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .mark i { width: 10px; height: 10px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 14px var(--amber); }
+  nav.links { display: flex; gap: 22px; }
+  nav.links a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  nav.links a:hover, nav.links a:focus-visible { color: var(--text); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 4px; }
+
+  .depth { position: fixed; left: var(--gutter); bottom: calc(22px + env(safe-area-inset-bottom, 0px)); z-index: 10;
+    font: 500 11px/1.5 var(--mono); letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+  .depth b { display: block; font-weight: 500; color: var(--amber); font-size: 20px; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+
+  .rail { position: fixed; right: var(--gutter); top: 50%; transform: translateY(-50%); z-index: 10;
+    display: flex; flex-direction: column; gap: 14px; }
+  .rail a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; text-decoration: none;
+    font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: transparent; transition: color .3s; }
+  .rail a::after { content: ""; width: 18px; height: 1px; background: var(--muted); transition: width .35s, background .35s; }
+  .rail a:hover { color: var(--muted); }
+  .rail a.on { color: var(--text); }
+  .rail a.on::after { width: 42px; background: var(--amber); }
+
+  /* ---------- scenes ---------- */
+  main { position: relative; z-index: 2; }
+  section.scene { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center;
+    padding-inline: var(--gutter); padding-block: 110px; }
+  section.scene.right { justify-content: flex-end; }
+  .panel { max-width: 460px; display: grid; gap: 18px; }
+  .panel.glass { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 30px;
+    backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); }
+
+  .eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--cyan); display: flex; gap: 14px; flex-wrap: wrap; }
+  .eyebrow span + span::before { content: "/"; margin-right: 14px; color: var(--muted); }
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+  h1.name { font-weight: 800; font-size: clamp(56px, 11vw, 168px); line-height: .86; letter-spacing: -.045em; }
+  h1.name .row { display: block; overflow: hidden; padding-bottom: .06em; }
+  h1.name .row > span { display: inline-block; animation: rise 1.1s cubic-bezier(.2,.8,.2,1) both; }
+  h1.name .row:nth-child(2) > span { animation-delay: .12s; color: transparent; -webkit-text-stroke: 1.5px var(--text); }
+  @keyframes rise { from { transform: translateY(30%); } to { transform: none; } }
+  h2 { font-weight: 800; font-size: clamp(34px, 4.8vw, 60px); line-height: .98; letter-spacing: -.035em; }
+  p { margin: 0; color: #c3cad4; max-width: 60ch; }
+  .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--text); }
+
+  .hero .panel { max-width: 760px; }
+  .hero-foot { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 10px; }
+  .cue { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 12px; }
+  .cue i { width: 1px; height: 38px; background: linear-gradient(var(--amber), transparent); animation: drip 2s ease-in-out infinite; transform-origin: top; }
+  @keyframes drip { 0%,100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+  .fig { position: absolute; right: calc(var(--gutter) + 70px); bottom: 90px; max-width: 250px;
+    font: 400 11px/1.6 var(--mono); letter-spacing: .04em; color: var(--muted); border-left: 1px solid var(--amber); padding-left: 12px; }
+  .fig b { color: var(--text); font-weight: 500; display: block; letter-spacing: .12em; text-transform: uppercase; }
+
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px; border-radius: 999px;
+    font: 600 14px/1 var(--body); text-decoration: none; cursor: pointer; border: 1px solid var(--amber);
+    background: var(--amber); color: var(--ink); transition: transform .2s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px var(--amber); }
+
+  dl.facts { display: grid; grid-template-columns: auto 1fr; gap: 10px 22px; margin: 6px 0 0; padding-top: 18px; border-top: 1px solid var(--line); }
+  dl.facts dt { font: 500 11px/1.9 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  dl.facts dd { margin: 0; }
+
+  .proj .idx { font: 800 clamp(64px, 8vw, 104px)/.8 var(--display); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px var(--amber); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span { font: 500 11px/1 var(--mono); letter-spacing: .06em; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+  .btn.ghost:hover { border-color: var(--text); box-shadow: none; }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 10px 26px; padding-block: 4px; }
+  .stats div { display: grid; }
+  .stats b { font: 800 34px/1 var(--display); letter-spacing: -.03em; color: var(--amber); font-variant-numeric: tabular-nums; }
+  .stats span { font: 500 10px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); max-width: 16ch; }
+  ul.points { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #c3cad4; font-size: 14.5px; }
+  ul.points li::marker { color: var(--amber); }
+
+  .shots { display: flex; gap: 8px; flex-wrap: wrap; }
+  .shots button { padding: 0; width: 84px; height: 62px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    background: none; cursor: zoom-in; transition: transform .2s, box-shadow .2s; }
+  .shots button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -8px rgba(20,40,80,.45); }
+  .shots img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lightbox { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+    padding: calc(64px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    background: rgba(8, 19, 31, .9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .lightbox[hidden] { display: none; }
+  .lightbox figure { margin: 0; display: grid; gap: 12px; justify-items: center; max-width: min(1100px, 100%); }
+  .lightbox video { max-width: 100%; max-height: calc(100vh - 160px); border-radius: 8px; background: #000; }
+  .lightbox img { max-width: 100%; max-height: calc(100vh - 160px); border-radius: 8px; box-shadow: 0 30px 80px -30px #000; }
+  .lightbox figcaption { color: #e8ecf6; font: 500 13px/1.5 var(--mono); text-align: center; max-width: 60ch; }
+  .lb-btn { position: absolute; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3);
+    background: rgba(255,255,255,.1); color: #fff; font: 400 26px/1 var(--body); cursor: pointer; }
+  .lb-btn:hover { background: rgba(255,255,255,.22); }
+  .lb-close { top: calc(14px + env(safe-area-inset-top, 0px)); right: 16px; }
+  .lb-nav { top: 50%; transform: translateY(-50%); }
+  .lb-nav.prev { left: 12px; } .lb-nav.next { right: 12px; }
+
+  .depth { display: none; }
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 12; pointer-events: none; }
+  .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--amber), #f2c200); transform-origin: 0 50%; transform: scaleX(0); }
+  header.bar { transition: background .3s, box-shadow .3s, padding .3s; }
+  header.bar.scrolled { background: rgba(21,24,28,.8); backdrop-filter: blur(12px) saturate(1.3); -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    box-shadow: 0 1px 0 var(--line); padding-block: calc(12px + env(safe-area-inset-top, 0px)) 12px; }
+  nav.links a { position: relative; }
+  nav.links a.on:not(.hire) { color: var(--text); }
+  nav.links a.on:not(.hire)::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; background: var(--amber); border-radius: 2px; }
+  .panel.glass { box-shadow: 0 40px 80px -40px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06); }
+  /* each section arrives its own way: the motion follows where the panel sits */
+  .scene .panel { transition: transform 1.15s cubic-bezier(.16,1,.3,1); }
+  .scene[data-reveal="left"]:not(.in) .panel { transform: translateX(-56px); }
+  .scene[data-reveal="right"]:not(.in) .panel { transform: translateX(56px); }
+  .scene[data-reveal="up"]:not(.in) .panel { transform: translateY(40px); }
+  .scene[data-reveal="drop"]:not(.in) .panel { transform: translateY(-32px); }
+  .scene[data-reveal="scale"]:not(.in) .panel { transform: scale(.94); }
+  .scene[data-reveal="tilt"]:not(.in) .panel { transform: perspective(1400px) rotateY(9deg) translateX(-20px); transform-origin: left center; }
+  @media (prefers-reduced-motion: reduce) { .scene:not(.in) .panel { transform: none !important; } }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .cvp { max-width: 820px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 30px; align-items: center; }
+  .cv-text { display: grid; gap: 16px; }
+  .cv-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cv-sheet { padding: 0; border: 0; background: #fff; cursor: zoom-in; border-radius: 4px; overflow: hidden;
+    transform: rotate(2.5deg); transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s; box-shadow: 0 34px 60px -28px rgba(0,0,0,.85); }
+  .cv-sheet:hover, .cv-sheet:focus-visible { transform: rotate(0) translateY(-6px) scale(1.02); box-shadow: 0 44px 70px -30px rgba(0,0,0,.9); }
+  .cv-sheet img { display: block; width: 100%; height: auto; }
+  @media (max-width: 820px) { .cvp { grid-template-columns: 1fr; } .cv-sheet { max-width: 240px; justify-self: center; } }
+
+
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(90deg, rgba(21,24,28,.92) 0%, rgba(21,24,28,.72) 38%, rgba(21,24,28,0) 60%); }
+  @media (max-width: 820px) { .hero::before { background: linear-gradient(0deg, rgba(21,24,28,.95) 0%, rgba(21,24,28,.82) 55%, rgba(21,24,28,0) 80%); } }
+  .avail { display: inline-flex; align-items: center; gap: 10px; justify-self: start; padding: 8px 14px; border-radius: 999px;
+    background: rgba(31,157,85,.16); border: 1px solid rgba(61,220,151,.32); color: #8ee4b0; font: 500 12px/1.4 var(--mono); letter-spacing: .04em; }
+  .avail i { width: 8px; height: 8px; border-radius: 50%; background: #1f9d55; box-shadow: 0 0 0 4px rgba(31,157,85,.2); flex: none; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(31,157,85,.05); } }
+  ul.proof { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; max-width: 680px; }
+  ul.proof li { border-left: 2px solid var(--amber); padding-left: 10px; font: 500 11px/1.35 var(--mono); letter-spacing: .03em; color: var(--muted); }
+  ul.proof b { display: block; font: 800 28px/1 var(--display); color: var(--text); margin-bottom: 4px; letter-spacing: -.02em; }
+  .values { display: grid; gap: 12px; }
+  .values div { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--cyan); }
+  .values b { font-weight: 600; }
+  .values span { font-size: 14px; color: #c3cad4; }
+  .hire { padding: 9px 16px; border-radius: 999px; background: var(--amber); color: #fff !important; text-decoration: none; }
+  .hire:hover { box-shadow: 0 8px 20px -8px var(--amber); }
+  .shots button { position: relative; }
+  .shots video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .shots .play { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 18px; background: rgba(8,19,31,.35); }
+  .wastes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .wastes div { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font: 500 10px/1.3 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,.03); overflow-wrap: anywhere; }
+  .wastes b { display: block; font: 800 22px/1 var(--display); color: var(--amber); margin-bottom: 4px; }
+
+  .record { max-width: 560px; }
+  .certs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .certs button { display: grid; grid-template-columns: 74px 1fr; gap: 12px; align-items: center; text-align: left; padding: 8px; border: 1px solid var(--line); border-radius: 12px;
+    background: rgba(255,255,255,.04); cursor: zoom-in; font: inherit; color: var(--text); transition: transform .2s, box-shadow .2s; }
+  .certs button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -10px rgba(20,40,80,.45); }
+  .certs img { width: 74px; height: 56px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
+  .certs strong { display: block; font-size: 14px; font-weight: 600; line-height: 1.25; }
+  .certs em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); }
+  .certs small { display: block; font: 500 10.5px/1.4 var(--mono); color: var(--muted); letter-spacing: .02em; }
+  @media (max-width: 520px) { .certs { grid-template-columns: 1fr; } }
+  ol.timeline, ul.awards { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  ol.timeline li, ul.awards li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: baseline; }
+  ol.timeline time { font: 500 11px/1.6 var(--mono); letter-spacing: .08em; color: var(--cyan); font-variant-numeric: tabular-nums; }
+  ol.timeline b, ul.awards strong { display: block; font-weight: 600; }
+  ol.timeline span, ul.awards span { display: block; font-size: 13.5px; color: var(--muted); }
+  ul.awards { padding-top: 16px; border-top: 1px solid var(--line); }
+  ul.awards li > b { font: 800 26px/1 var(--display); color: var(--amber); letter-spacing: -.02em; }
+  .small { font-size: 13px; color: var(--muted); }
+
+  .tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .tools div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: rgba(255,255,255,.03); display: grid; gap: 4px; }
+  .tools b { font: 700 16px/1.2 var(--display); }
+  .tools span { font: 500 10px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  dl.reach { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 36px; margin: 0; }
+  dl.reach dt { font: 500 11px/1.6 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  dl.reach dd { margin: 0; font-weight: 600; user-select: all; }
+
+  .skills .panel { max-width: 820px; }
+  .stack { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; }
+  .stack h3 { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
+  .stack ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .stack li { font-size: 14.5px; font-weight: 500; line-height: 1.35; }
+
+  .contact { justify-content: center; text-align: center; }
+  .contact .panel { max-width: 680px; justify-items: center; }
+  .contact h2 { font-size: clamp(44px, 8vw, 110px); }
+  .mail { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .mail code { font: 500 clamp(15px, 2.2vw, 22px)/1 var(--mono); color: var(--text); user-select: all; padding: 14px 18px; border: 1px dashed var(--line); border-radius: 12px; }
+  .socials { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .socials a { color: var(--muted); text-decoration: none; }
+  .socials a:hover { color: var(--amber); }
+  footer.fine { position: relative; z-index: 2; text-align: center; padding: 0 var(--gutter) calc(80px + env(safe-area-inset-bottom, 0px)); font: 500 11px/1.6 var(--mono); letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+  @media (max-width: 820px) {
+    .rail, .fig { display: none; }
+    nav.links { gap: 14px; } nav.links a:not(.hire):not(.cvlink) { display: none; }
+    section.scene, section.scene.right { align-items: flex-end; justify-content: stretch; padding-block: 90px 110px; }
+    .panel { max-width: none; width: 100%; }
+    .stack, .tools, ul.proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    ol.timeline li, ul.awards li { grid-template-columns: 70px 1fr; }
+    .contact { align-items: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    h1.name .row > span, .cue i, .avail i { animation: none; }
+  }
+</style>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="blueprint"></div>
+<div class="grain"></div>
+
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<header class="bar">
+  <a class="mark" href="#top"><i></i><span>Tanvir Islam</span></a>
+  <nav class="links" aria-label="Sections">
+    <a href="#about">About</a><a href="#lean">Lean</a><a href="#work">Work</a><a href="#data">Data</a><a href="#record">Record</a><a href="#skills">Skills</a><a class="cvlink" href="#cv">CV</a><a class="hire" href="#contact">Hire me</a>
+  </nav>
+</header>
+
+<div class="depth" aria-hidden="true">Depth<b id="depthVal">000.0 m</b><span id="depthLabel">Surface</span></div>
+<nav class="rail" id="rail" aria-label="Scene index"></nav>
+
+<main id="top">
+  <section class="scene hero" data-label="Surface">
+    <div class="panel">
+      <div class="avail"><i></i>Available from November 2026 · graduate roles in supply chain, procurement, production &amp; process improvement</div>
+      <h1 class="name"><span class="row"><span>Tanvir</span></span><span class="row"><span>Islam</span></span></h1>
+      <p class="lede">Final-year Industrial &amp; Production Engineering student at AUST. I read a process in terms of its losses: where it gives up time, material or capacity. I model supply risk, design parts in CAD, and test them in ANSYS before I print them.</p>
+      <ul class="proof">
+        <li><b>5</b>operational losses found on a live cement line</li>
+        <li><b>88%</b>lower disruption cost in my supply-risk model</li>
+        <li><b>68</b>studies in my thesis review</li>
+        <li><b>3rd</b>place, IPE Product Showcasing</li>
+      </ul>
+      <div class="hero-foot">
+        <a class="btn" href="#work">See my work</a>
+        <a class="btn ghost" href="#contact">Contact me</a>
+        <span class="cue"><i></i>Scroll to descend</span>
+      </div>
+    </div>
+    <div class="fig"><b>Fig. 1: Hybrid auxetic interference screw</b>My actual thesis print model, Ø&nbsp;12.1&nbsp;×&nbsp;37.1&nbsp;mm. Re-entrant cells give a negative Poisson’s ratio (ν&nbsp;&lt;&nbsp;0): stretch it and it gets wider, which is how it grips the bone tunnel in ACL reconstruction. Stretch animation is illustrative.</div>
+  </section>
+
+  <section class="scene" id="about" data-label="About">
+    <div class="panel glass">
+      <div class="eyebrow"><span>Why hire me</span></div>
+      <h2>Ready for the production floor from November 2026.</h2>
+      <div class="values">
+        <div><b>Process improvement</b><span>Followed a five-packer cement plant end to end at Akij, found 5 bottlenecks and proposed a Kaizen-based fix for each.</span></div>
+        <div><b>Design to prototype</b><span>Took an auxetic implant from SolidWorks to ANSYS to a printed part, and built a working oxygen concentrator prototype.</span></div>
+        <div><b>Evidence first</b><span>Ran a PRISMA 2020 review of 68 studies and built a Monte Carlo supply-risk model. Comfortable with Minitab, MATLAB and Excel for quality data.</span></div>
+        <div><b>Clear communicator</b><span>Tutored students and presented plant findings to faculty. Steady in team settings and quick to learn new software.</span></div>
+      </div>
+      <dl class="facts">
+        <dt>Degree</dt><dd>B.Sc. Industrial &amp; Production Engineering, AUST</dd>
+        <dt>Based in</dt><dd>Rampura, Dhaka, Bangladesh</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="scene" id="lean" data-label="Lean">
+    <div class="panel glass">
+      <div class="eyebrow"><span>Lean thinking</span><span>Kaizen</span></div>
+      <h2>Find the waste. Fix it. Lock it in. Repeat.</h2>
+      <p>I learned process improvement through university coursework in lean manufacturing and work study, and I hold a Lean Six Sigma White Belt from GoLeanSixSigma. At Akij Cement I put it to work, following a five-packer plant from raw material intake to packing and mapping where the flow broke down.</p>
+      <p class="small">The 3D line follows those plant stages. Each Kaizen cycle shrinks the work-in-progress piles and speeds up the flow. The PDCA wheel then rolls one step up the slope, with a standard wedged behind it so the gain can’t slip back. Figures are illustrative.</p>
+      <div class="wastes" aria-label="The eight wastes of lean">
+        <div><b>T</b>Transport</div><div><b>I</b>Inventory</div><div><b>M</b>Motion</div><div><b>W</b>Waiting</div>
+        <div><b>O</b>Over&shy;production</div><div><b>O</b>Over&shy;processing</div><div><b>D</b>Defects</div><div><b>S</b>Unused skills</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="work"></div>
+  <div id="projects"></div>
+
+  <section class="scene" id="data" data-label="Data">
+    <div class="panel glass">
+      <div class="eyebrow"><span>Data analysis</span><span>Minitab · MATLAB · Excel</span></div>
+      <h2>Let the data point to the problem.</h2>
+      <p>Quality control and work study taught me to read a process through its numbers. For my thesis I extracted Poisson’s ratio from ANSYS results and mapped 68 studies in VOSviewer, and I recently finished a 21-day Power BI webinar series. The control room shows the analyses I use to decide what to fix first.</p>
+      <div class="tags"><span>Control charts (SPC)</span><span>Process capability</span><span>Pareto analysis</span><span>Regression</span><span>Time &amp; motion study</span></div>
+      <p class="small">Charts run live on simulated data.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="record" data-label="Record">
+    <div class="panel glass record">
+      <div class="eyebrow"><span>Education</span><span>Achievements</span><span>Certifications</span></div>
+      <h2>Track record</h2>
+      <ol class="timeline" id="education"></ol>
+      <ul class="awards" id="awards"></ul>
+      <div class="certs" id="certs" aria-label="Certifications"></div>
+      <p class="small">References available on request.</p>
+    </div>
+  </section>
+
+  <section class="scene skills" id="skills" data-label="Skills">
+    <div class="panel glass">
+      <div class="eyebrow"><span>Skills</span></div>
+      <h2>Software, methods and strengths</h2>
+      <div class="tools" id="tools"></div>
+      <div class="stack" id="stack"></div>
+    </div>
+  </section>
+
+  <section class="scene right" id="cv" data-label="CV">
+    <div class="panel glass cvp">
+      <div class="cv-text">
+        <div class="eyebrow"><span>Curriculum vitae</span><span>October 2026</span></div>
+        <h2>The one-page version.</h2>
+        <p>Thesis, the Chokepoint project, the Akij attachment, skills and references on a single page. It’s the version to forward to a hiring manager.</p>
+        <div class="cv-actions">
+          <button class="btn" id="cvDownload" type="button" hidden>Download PDF</button>
+          <button class="btn ghost" id="cvView" type="button">View full page</button>
+        </div>
+        <p class="small" id="cvNote">PDF · 1 page · 282 KB</p>
+      </div>
+      <button class="cv-sheet" id="cvSheet" type="button" aria-label="View the CV full page"><img src="cv-preview.jpg" alt="Preview of Tanvir Islam’s one-page CV" loading="lazy"></button>
+    </div>
+  </section>
+
+  <section class="scene contact" id="contact" data-label="Contact">
+    <div class="panel">
+      <div class="eyebrow"><span>Plan</span><span>Do</span><span>Check</span><span>Act</span></div>
+      <h2>Let’s improve something.</h2>
+      <p class="lede">Hiring for production, process improvement or quality? I’d like to hear from you.</p>
+      <div class="mail">
+        <code id="email"></code>
+        <button class="btn" id="copyBtn" type="button">Copy email</button>
+      </div>
+      <dl class="reach" id="reach"></dl>
+      <div class="socials" id="socials"></div>
+    </div>
+  </section>
+</main>
+<footer class="fine">© 2026 Tanvir Islam · Built with Three.js</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close">×</button>
+  <button class="lb-btn lb-nav prev" id="lbPrev" type="button" aria-label="Previous photo">‹</button>
+  <figure><img id="lbImg" alt=""><video id="lbVid" controls muted loop playsinline hidden></video><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-btn lb-nav next" id="lbNext" type="button" aria-label="Next photo">›</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* =========================================================
+   EDIT THIS: all the page's personal content lives here.
+   ========================================================= */
+const PROFILE = {
+  name: "Tanvir Islam",
+  title: "Industrial & Production Eng.",
+  photo: "photo.webp",
+  email: "tanvirislam.ie@gmail.com",
+  phone: "+880 1813-012320",
+  location: "Rampura, Dhaka, Bangladesh",
+  socials: [
+    ["LinkedIn", "https://www.linkedin.com/in/tanvir-islam-7805a4305"]
+  ],
+  projects: [
+    { title: "Akij Cement Company Ltd.", year: "", role: "Industrial attachment", skillTags: [["Kaizen", "#e26a00", .9, 2.3], ["Lean OpEx", "#1f9d55", 2.5, 2.58]],
+      text: "Followed the full production cycle of a five-packer automated plant: raw material intake, VRM grinding, clinker production and CCR-monitored packaging. I assessed the plant against Kaizen and Lean OpEx principles and proposed a corrective approach for each bottleneck.",
+      points: ["Found a dust hazard at Packer 3, a missing belt conveyor at VRM 1 and idle packer capacity",
+               "Wrote a plant visit report and presentation on fly-ash-free production, 12-step quality control and closed-loop recycling"],
+      cover: { src: "akij-site.jpg", fx: .47, fy: .6 },
+      gallery: [
+        { src: "akij-site.jpg", cap: "On site at the Akij Cement plant during my industrial attachment" },
+        { src: "akij-plant.jpg", cap: "Raw material intake: grab crane feeding the hopper" },
+        { src: "akij-team.jpg", cap: "Discussion with Akij management at the end of the attachment" }
+      ],
+      stats: [["5", "bottlenecks identified"], ["3", "strengths documented"], ["5", "recommendations"]],
+      tags: ["Kaizen", "Lean OpEx", "Bottleneck analysis", "Cement"], colors: ["#e26a00", "#f59f00"] },
+    { title: "Hybrid Auxetic Interference Screw", year: "2026", role: "Undergraduate thesis · In progress", printer: true, cover: { src: "screw-print.jpg", fx: .5, fy: .55 },
+      gallery: [
+        { src: "screw-print.jpg", cap: "My printed hybrid auxetic screw, backlit to show the lattice" },
+        { src: "screw-video.mp4", thumb: "screw-print.jpg", cap: "The printed screw turning under backlight", video: true }
+      ], skillTags: [["ANSYS FEA", "#d6336c"], ["VOSviewer", "#9b3fd1"], ["Bambu Studio", "#1f9d55"]],
+      text: "A 3D-printed biomedical implant for ACL reconstruction. I’m designing a hybrid auxetic unit cell to improve fixation strength and reduce stress shielding.",
+      points: ["Finite element analysis in ANSYS to extract Poisson’s ratio and characterise unit-cell behaviour under load",
+               "Evaluating PLA, PCL and HA biocomposites for additive manufacturing",
+               "Bibliometric keyword maps in VOSviewer",
+               "Preparing and printing the screw with Bambu Studio on Bambu Lab hardware. The 3D model on the opening screen is the real print file"],
+      stats: [["68", "studies in PRISMA 2020 review"], ["3", "biomaterials evaluated"]],
+      tags: ["ANSYS FEA", "Additive manufacturing", "VOSviewer", "Bambu Studio"], colors: ["#1c64d8", "#5b8def"] },
+    { title: "Chokepoint: Supply Risk Control Tower", year: "2026", role: "Personal project · Supply chain analytics", anim: "chokepoint",
+      text: "An interactive decision tool for a fictional appliance maker in Gazipur that imports five critical inputs from 13 suppliers. About half of its $91M material spend passes through the Strait of Hormuz, the Red Sea or the Taiwan Strait. The tool shows where the supply base breaks first, then tests what to do about it.",
+      points: ["Ran 1,000 six-month Monte Carlo simulations across four sourcing policies. Dual sourcing plus a 10-day buffer cut expected disruption cost by 88% and lifted worst-case fill rate from 65% to 99%",
+               "Scored suppliers with AHP (consistency ratio 0.015) and a time-to-survive vs time-to-recover analysis: 51% of spend crosses a chokepoint and 5 of 10 supply nodes can run dry",
+               "Modelled the 2026 DRAM price surge, where a banded long-term agreement halved worst-case memory cost versus spot buying",
+               "Added a sourcing linear program, an 8-indicator early-warning system and a root-cause playbook, all built in JavaScript"],
+      stats: [["88%", "lower expected disruption cost"], ["65→99%", "worst-case fill rate"], ["51%", "spend through chokepoints"]],
+      tags: ["Supply chain risk", "Monte Carlo", "AHP", "Linear programming", "JavaScript"], colors: ["#b4471c", "#2a78d6"] },
+    { title: "Machine Shop Process Layout", year: "", role: "Academic project", anim: "layout", skillTags: [["AutoCAD", "#d6336c"], ["Facility layout", "#1c64d8"]],
+      text: "Designed the full workshop floor layout for the Machine Shop Laboratory in AutoCAD.",
+      tags: ["AutoCAD", "Facility layout", "Process flow"], colors: ["#34507a", "#6582ad"] },
+    { title: "Ergonomic Drawing Table", year: "", role: "Academic project",
+      text: "Modelled an adjustable ergonomic drawing table in SolidWorks: an X-frame desk with a tilting drawing board, pencil ledge, tool tray, storage drawers and a gooseneck lamp, paired with a height-adjustable swivel stool.",
+      points: ["The tilting board lets the user change the working angle instead of bending over a flat desk",
+               "The 3D model here tilts the board, slides the drawers and swivels the stool to show each adjustment"],
+      exhibit: "table", floaters: false, skillTags: [["SolidWorks", "#1c64d8"], ["Ergonomics", "#1f9d55"]],
+      gallery: [{ src: "table-cad.png", cap: "SolidWorks assembly: ergonomic drawing table and swivel stool" }],
+      tags: ["SolidWorks", "Ergonomics", "Assembly modelling"], colors: ["#1f9d55", "#63c28a"] },
+    { title: "DIY Oxygen Concentrator Mask", year: "", role: "Academic project · Biomedical",
+      text: "Commercial oxygen concentrators cost ৳70,000–95,000 and cylinders need frequent refills, which leaves rural clinics and emergencies short of oxygen. Our team of four built a low-cost, energy-efficient concentrator mask that uses zeolite filtration to produce medical-grade oxygen.",
+      points: ["Modelled the full assembly in SolidWorks, then built a working prototype from locally available parts",
+               "Aimed at hospitals and clinics, disaster relief field hospitals, and home oxygen therapy",
+               "Presented at the AUST IPE Product Showcasing"],
+      stats: [["70%", "lower cost than commercial units (target)"], ["4", "team members"]],
+      cover: { src: "o2-showcase.jpg", fx: .55, fy: .42 }, exhibit: "o2", floaters: false, skillTags: [["SolidWorks", "#1c64d8"], ["Prototyping", "#e26a00"], ["Biomedical", "#d6336c"]],
+      gallery: [
+        { src: "o2-showcase.jpg", cap: "Presenting the prototype at the AUST IPE Product Showcasing" },
+        { src: "o2-cad-iso.jpg", cap: "SolidWorks assembly, isometric view" },
+        { src: "o2-cad-front.jpg", cap: "SolidWorks assembly, front view" }
+      ],
+      tags: ["SolidWorks", "Biomedical", "Zeolite filtration", "Prototyping"], colors: ["#d6336c", "#f06595"] }
+  ],
+  education: [
+    ["2022 – 2026", "B.Sc. in Industrial and Production Engineering", "Ahsanullah University of Science and Technology, Dhaka · expected November 2026"],
+    ["2020", "Higher Secondary Certificate", "Hajera-Taju Degree College, Chattogram · GPA 5.00 / 5.00"],
+    ["2018", "Secondary School Certificate", "Bayezid Bostami Cantonment Board High School, Chattogram · GPA 5.00 / 5.00"]
+  ],
+  certs: [
+    { src: "cert-white-belt.jpg", title: "Lean Six Sigma White Belt", issuer: "GoLeanSixSigma (GLSS)", date: "October 2026",
+      note: "Certificate no. 0261000578 · valid to October 2028", cap: "Lean Six Sigma White Belt, GoLeanSixSigma, October 2026 (certificate no. 0261000578)" },
+    { src: "cert-power-bi.jpg", title: "Power BI, 21-day webinar series", issuer: "Gobeshona Learning Academy", date: "October 2026",
+      note: "Certificate of participation", cap: "Power BI 21-day webinar series, Gobeshona Learning Academy, October 2026" }
+  ],
+  awards: [
+    ["1st", "Math Olympiad, champion", "Hajera-Taju Degree College"],
+    ["2nd", "Physics Olympiad, runner-up", "Hajera-Taju Degree College"],
+    ["3rd", "IPE Product Showcasing", "AUST, 2025"],
+    ["SCM", "Supply Chain & Procurement, participant", "ISCEA, Ptak Prize Competition, 2025"]
+  ],
+  tools: [
+    ["SolidWorks", "3D CAD modelling"], ["AutoCAD", "2D drafting & layouts"], ["ANSYS", "Finite element analysis"],
+    ["MATLAB", "Numerical computing"], ["Minitab", "Statistics & quality"], ["Bambu Studio", "3D printing & slicing"],
+    ["VOSviewer", "Bibliometric mapping"], ["Microsoft Office", "Word, Excel, PowerPoint"], ["JavaScript", "HTML/CSS · web tools"], ["Power BI", "Dashboards · learning"]
+  ],
+  stack: {
+    "Supply chain & procurement": ["Supply risk assessment", "Strategic sourcing", "Inventory policy & safety stock", "Monte Carlo simulation", "AHP (MCDM)", "Linear programming"],
+    "Coursework & exposure": ["Production Planning & Operations", "Process Improvement & Lean Manufacturing", "Work Study (Time & Motion)", "Supply Chain & Inventory Management", "Quality Control & Assurance"],
+    "Core competencies": ["Leadership", "Communication", "Teamwork", "Analytical Thinking", "Problem Solving"],
+    "Languages": ["Bengali, native", "English, fluent", "Hindi, conversational"]
+  }
+};
+
+/* ---------- build DOM from PROFILE ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+$("#email").textContent = PROFILE.email;
+$("#projects").innerHTML = PROFILE.projects.map((p, i) => `
+  <section class="scene proj ${i % 2 ? "" : "right"}" data-label="Work ${String(i + 1).padStart(2, "0")}">
+    <div class="panel glass">
+      <div class="idx">${String(i + 1).padStart(2, "0")}</div>
+      <div class="eyebrow">${p.year ? `<span>${esc(p.year)}</span>` : ""}<span>${esc(p.role)}</span></div>
+      <h2>${esc(p.title)}</h2>
+      <p>${esc(p.text)}</p>
+      ${p.stats ? `<div class="stats">${p.stats.map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>` : ""}
+      ${p.points ? `<ul class="points">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${p.gallery ? `<div class="shots" data-p="${i}">${p.gallery.map(g => `<button type="button" aria-label="View ${g.video ? "video" : "photo"}: ${esc(g.cap)}"><img src="${esc(g.thumb || g.src)}" alt="" loading="lazy">${g.video ? `<span class="play">▶</span>` : ""}</button>`).join("")}</div>` : ""}
+      <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+    </div>
+  </section>`).join("");
+
+/* ---------- photo viewer ---------- */
+const lb = $("#lightbox");
+let lbList = [], lbIdx = 0;
+const showLb = () => {
+  const s = lbList[lbIdx], img = $("#lbImg"), vid = $("#lbVid");
+  img.hidden = !!s.video; vid.hidden = !s.video;
+  if (s.video) { vid.src = s.src; vid.play().catch(() => {}); } else { vid.pause(); img.src = s.src; img.alt = s.cap; } $("#lbCap").textContent = `${s.cap}  ·  ${lbIdx + 1} / ${lbList.length}`; };
+const stepLb = d => { lbIdx = (lbIdx + d + lbList.length) % lbList.length; showLb(); };
+document.querySelectorAll(".shots").forEach(el => el.querySelectorAll("button").forEach((b, k) =>
+  b.addEventListener("click", () => { lbList = PROFILE.projects[+el.dataset.p].gallery; lbIdx = k; showLb(); lb.hidden = false; $("#lbClose").focus(); })));
+const closeLb = () => { lb.hidden = true; $("#lbVid").pause(); };
+$("#lbClose").addEventListener("click", closeLb);
+$("#lbPrev").addEventListener("click", () => stepLb(-1));
+$("#lbNext").addEventListener("click", () => stepLb(1));
+lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+addEventListener("keydown", e => {
+  if (lb.hidden) return;
+  if (e.key === "Escape") closeLb(); else if (e.key === "ArrowLeft") stepLb(-1); else if (e.key === "ArrowRight") stepLb(1);
+});
+$("#education").innerHTML = PROFILE.education.map(([y, t, s]) => `<li><time>${esc(y)}</time><div><b>${esc(t)}</b><span>${esc(s)}</span></div></li>`).join("");
+$("#certs").innerHTML = PROFILE.certs.map((c, k) => `<button type="button" data-k="${k}" aria-label="View certificate: ${esc(c.title)}"><img src="${esc(c.src)}" alt="" loading="lazy"><span><strong>${esc(c.title)}</strong><em>${esc(c.issuer)} · ${esc(c.date)}</em><small>${esc(c.note)}</small></span></button>`).join("");
+document.querySelectorAll("#certs button").forEach(b => b.addEventListener("click", () => { lbList = PROFILE.certs; lbIdx = +b.dataset.k; showLb(); lb.hidden = false; $("#lbClose").focus(); }));
+$("#awards").innerHTML = PROFILE.awards.map(([n, t, s]) => `<li><b>${esc(n)}</b><div><strong>${esc(t)}</strong><span>${esc(s)}</span></div></li>`).join("");
+$("#tools").innerHTML = PROFILE.tools.map(([n, d]) => `<div><b>${esc(n)}</b><span>${esc(d)}</span></div>`).join("");
+$("#stack").innerHTML = Object.entries(PROFILE.stack).map(([k, v]) =>
+  `<div><h3>${esc(k)}</h3><ul>${v.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+$("#reach").innerHTML = `<div><dt>Phone</dt><dd>${esc(PROFILE.phone)}</dd></div><div><dt>Location</dt><dd>${esc(PROFILE.location)}</dd></div>`;
+$("#socials").innerHTML = PROFILE.socials.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a>`).join("");
+
+$("#copyBtn").addEventListener("click", () => {
+  const btn = $("#copyBtn");
+  const done = msg => { btn.textContent = msg; setTimeout(() => btn.textContent = "Copy email", 1800); };
+  const select = () => { const r = document.createRange(); r.selectNodeContents($("#email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done("Selected, press Ctrl+C"); };
+  try { navigator.clipboard.writeText(PROFILE.email).then(() => done("Copied"), select); } catch (e) { select(); }
+});
+
+const scenes = [...document.querySelectorAll("section.scene")];
+const rail = $("#rail");
+scenes.forEach((s, i) => {
+  if (!s.id) s.id = "s" + i;
+  const a = document.createElement("a"); a.href = "#" + s.id; a.textContent = s.dataset.label; rail.appendChild(a);
+});
+const railLinks = [...rail.children];
+
+/* ---------- interface: scroll progress, frosted header, active menu item, panel reveal ---------- */
+const headerBar = document.querySelector("header.bar"), progressBar = $("#progressBar");
+const navLinks = [...document.querySelectorAll("nav.links a")];
+const onScroll = () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progressBar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+  headerBar.classList.toggle("scrolled", scrollY > 40);
+};
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
+function updateNav(idx) {
+  const sec = scenes[idx]; if (!sec) return;
+  const key = sec.classList.contains("proj") ? "work" : sec.id;
+  navLinks.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + key));
+}
+const revealer = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); }), { threshold: .15 });
+const REVEAL = { about: "left", lean: "tilt", data: "scale", record: "up", skills: "drop", cv: "right", contact: "scale" };
+scenes.forEach(s => {
+  if (s.classList.contains("hero")) { s.classList.add("in"); return; }
+  s.dataset.reveal = REVEAL[s.id] || (s.classList.contains("right") ? "right" : "left");
+  revealer.observe(s);
+});
+
+/* smooth, eased scrolling so the camera glides instead of stepping with each wheel notch */
+let lenis = null;
+if (window.Lenis && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  try {
+    lenis = new Lenis({ duration: 1.15, easing: t => 1 - Math.pow(1 - t, 4), smoothWheel: true });
+    document.documentElement.style.scrollBehavior = "auto";
+    const lraf = t => { lenis.raf(t); requestAnimationFrame(lraf); }; requestAnimationFrame(lraf);
+    document.addEventListener("click", e => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+      const id = a.getAttribute("href"), el = id.length > 1 && document.getElementById(id.slice(1));
+      if (el) { e.preventDefault(); lenis.scrollTo(el, { duration: 1.8 }); }
+    });
+  } catch (err) { lenis = null; }
+}
+
+/* CV: preview opens full size; the PDF is offered through the viewer's download prompt when the page is allowed to */
+const CV_LIST = [{ src: "cv-preview.jpg", cap: "Tanvir Islam, one-page CV, October 2026" }];
+const openCV = () => { lbList = CV_LIST; lbIdx = 0; showLb(); lb.hidden = false; $("#lbClose").focus(); };
+$("#cvView").addEventListener("click", openCV); $("#cvSheet").addEventListener("click", openCV);
+(async () => {
+  const btn = $("#cvDownload");
+  let dl = null;
+  try { dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null; } catch (err) { dl = null; }
+  if (!dl) {                                                   // ordinary website: a plain file download
+    btn.hidden = false;
+    btn.addEventListener("click", () => { const a = document.createElement("a"); a.href = "tanvir-islam-cv.pdf"; a.download = "Tanvir_Islam_CV.pdf"; document.body.appendChild(a); a.click(); a.remove(); });
+    return;
+  }
+  btn.hidden = false;
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    try {
+      const blob = await (await fetch("tanvir-islam-cv.pdf")).blob();
+      await dl.save({ filename: "Tanvir_Islam_CV.pdf", data: blob });
+      btn.textContent = "Saved";
+    } catch (err) {
+      btn.textContent = err && err.code === "declined" ? "Download PDF" : "Download unavailable here";
+    } finally { btn.disabled = false; }
+  });
+})();
+
+/* =========================================================
+   3D SCENE
+   ========================================================= */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const canvas = $("#gl");
+let renderer = null;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) {}
+
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setClearColor(0x15181c, 1); renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = .95;
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x15181c, 0.021);
+
+  function textSprite(size, draw) {
+    const c = document.createElement("canvas"); c.width = 512; c.height = 256;
+    const tex = new THREE.CanvasTexture(c);
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }));
+    s.scale.set(size * 2, size, 1);
+    s.userData.redraw = (...args) => { const g = c.getContext("2d"); g.clearRect(0, 0, 512, 256); draw(g, ...args); tex.needsUpdate = true; };
+    s.userData.redraw();
+    return s;
+  }
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+
+  const fresnel = (hex, alpha) => new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, uniforms: { uC: { value: new THREE.Color(hex) }, uA: { value: alpha } },
+    vertexShader: `varying vec3 vN, vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.);
+      vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }`,
+    fragmentShader: `uniform vec3 uC; uniform float uA; varying vec3 vN, vV;
+      void main(){ float f = pow(1. - abs(dot(vN, vV)), 2.); gl_FragColor = vec4(uC*(.35+f), (.12 + f*.88)*uA); }`
+  });
+
+  /* ---------- the core: an auxetic bone screw ----------
+     A re-entrant honeycomb wrapped around a cylinder. The lattice is rebuilt
+     every frame: as it stretches along its axis, the re-entrant corners open
+     out and the circumference grows, which is the negative Poisson effect. */
+  const screw = new THREE.Group();
+  scene.add(screw);
+  const COLS = 14, ROWS = 12, L = 0.42, C = 0.16, D0 = 0.13, H0 = 0.46;
+  const SEG_PER_CELL = 7;
+  const latPos = new Float32Array(COLS * ROWS * SEG_PER_CELL * 2 * 3);
+  const latGeo = new THREE.BufferGeometry();
+  latGeo.setAttribute("position", new THREE.BufferAttribute(latPos, 3));
+  const lattice = new THREE.LineSegments(latGeo, new THREE.LineBasicMaterial({ color: 0xe26a00, transparent: true, opacity: .95 }));
+  screw.add(lattice);
+  const P0x = L - 2 * D0 + C, R0 = COLS * P0x / (2 * Math.PI), LEN0 = ROWS * H0;
+
+  function buildLattice(s) {               // s in [0,1]: 0 = relaxed, 1 = stretched
+    const d = D0 * (1 - .75 * s), H = H0 * (1 + .22 * s);
+    const Px = L - 2 * d + C, W = COLS * Px, r = W / (2 * Math.PI), len = ROWS * H;
+    let k = 0;
+    const put = (x, y) => { const a = x / W * Math.PI * 2; latPos[k++] = Math.cos(a) * r; latPos[k++] = y - len / 2; latPos[k++] = Math.sin(a) * r; };
+    const seg = (x1, y1, x2, y2) => { put(x1, y1); put(x2, y2); };
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+      const cx = i * Px, cy = (j + .5) * H, h = H / 2, l = L / 2;
+      seg(cx - l, cy + h, cx + l, cy + h);         // top rib
+      seg(cx + l, cy + h, cx + l - d, cy);         // right re-entrant pair
+      seg(cx + l - d, cy, cx + l, cy - h);
+      seg(cx - l, cy - h, cx - l + d, cy);         // left re-entrant pair
+      seg(cx - l + d, cy, cx - l, cy + h);
+      seg(cx + l - d, cy, cx + Px - l + d, cy);    // strut to next cell
+      seg(cx - l, cy - h, cx + l, cy - h);         // bottom rib
+    }
+    latGeo.attributes.position.needsUpdate = true;
+    return { r, len };
+  }
+  buildLattice(0);
+
+  // solid parts: bone-like inner core, helical thread, head and tip
+  const inner = new THREE.Mesh(new THREE.CylinderGeometry(R0 * .82, R0 * .82, LEN0, 40, 1, true), fresnel(0x1c64d8, .55));
+  screw.add(inner);
+  const threadPts = [];
+  for (let t = 0; t <= 1; t += .002) {
+    const a = t * Math.PI * 2 * 7;
+    threadPts.push(new THREE.Vector3(Math.cos(a) * (R0 + .12), LEN0 / 2 - t * LEN0, Math.sin(a) * (R0 + .12)));
+  }
+  const thread = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(threadPts), 700, .045, 6, false),
+    new THREE.MeshBasicMaterial({ color: 0x1c64d8, transparent: true, opacity: .8 }));
+  screw.add(thread);
+  const head = new THREE.Group();
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(R0 * 1.55, R0 * 1.2, .5, 48), fresnel(0x0e1a2b, .9));
+  const capRim = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R0 * 1.55, R0 * 1.2, .5, 48), 30),
+    new THREE.LineBasicMaterial({ color: 0x1c64d8, transparent: true, opacity: .7 }));
+  const socket = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(
+    Array.from({ length: 6 }, (_, i) => new THREE.Vector3(Math.cos(i * Math.PI / 3) * R0 * .55, .26, Math.sin(i * Math.PI / 3) * R0 * .55))),
+    new THREE.LineBasicMaterial({ color: 0xe26a00 }));
+  head.add(cap, capRim, socket); screw.add(head);
+  const tipGeo = new THREE.ConeGeometry(R0, 1.1, 40, 1, true);
+  const tip = new THREE.Mesh(tipGeo, fresnel(0x1c64d8, .8));
+  tip.rotation.x = Math.PI;
+  const tipWire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.ConeGeometry(R0, 1.1, 14, 3, true)),
+    new THREE.LineBasicMaterial({ color: 0xe26a00, transparent: true, opacity: .45 }));
+  tipWire.rotation.x = Math.PI;
+  screw.add(tip, tipWire);
+  screw.rotation.order = "ZYX";            // spin about its own axis, then tilt
+  screw.rotation.z = -.32;
+
+  /* the real thesis print model (chikawa 5.stl, 731k triangles, welded to 278k at 0.1 mm)
+     replaces the procedural stand-in once it has downloaded */
+  const REAL = { mesh: null, k: 0, R: 0, L: 0, dia: 12.1, len: 37.1, onload: [] };
+  renderer.localClippingEnabled = true;                    // used by the 3D-print animation
+  // lighting: a soft factory environment for reflections, a key light with shadows that follows the camera
+  const SHADOWS = innerWidth > 820 && !reduce;
+  renderer.shadowMap.enabled = SHADOWS; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  (() => {
+    const pmrem = new THREE.PMREMGenerator(renderer), env = new THREE.Scene();
+    env.add(new THREE.Mesh(new THREE.BoxGeometry(40, 20, 40), new THREE.MeshBasicMaterial({ color: 0xcfd6df, side: THREE.BackSide })));
+    [[-9, 9.6, -9], [9, 9.6, -9], [-9, 9.6, 9], [9, 9.6, 9], [0, 9.6, 0]].forEach(p => {                // high-bay light panels
+      const l = new THREE.Mesh(new THREE.BoxGeometry(6, .2, 2), new THREE.MeshBasicMaterial({ color: 0xffffff })); l.position.set(p[0], p[1], p[2]); env.add(l); });
+    const fl = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: 0x7d848d })); fl.rotation.x = -Math.PI / 2; fl.position.y = -9.9; env.add(fl);
+    scene.environment = pmrem.fromScene(env, .04).texture;
+  })();
+  scene.add(new THREE.HemisphereLight(0xe6ecf4, 0x2b3036, .6));
+  const sun = new THREE.DirectionalLight(0xfff3e2, 1.0); sun.position.set(6, 9, 8); scene.add(sun); scene.add(sun.target);
+  const SUN_OFF = new THREE.Vector3(14, 26, 12);
+  if (SHADOWS) {
+    sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+    Object.assign(sun.shadow.camera, { left: -15, right: 15, top: 15, bottom: -15, near: 1, far: 80 });
+    sun.shadow.bias = -.0004; sun.shadow.normalBias = .03;
+  }
+  const fill = new THREE.DirectionalLight(0xdfe8ff, .25); fill.position.set(-8, 4, -6); scene.add(fill);
+  function applyShadows(root) {
+    root.traverse(o => {                                    // screens, labels and lines keep their exact colours
+      const m = o.material;
+      if (m && (m.isMeshBasicMaterial || m.isSpriteMaterial || m.isLineBasicMaterial || m.isPointsMaterial)) m.toneMapped = false;
+    });
+    if (!SHADOWS) return;
+    root.traverse(o => {
+      if (!o.isMesh) return;
+      const m = o.material;
+      const solidLit = m && (m.isMeshStandardMaterial || m.isMeshPhysicalMaterial);
+      o.receiveShadow = !!solidLit;
+      o.castShadow = !o.userData.noCast && !!m && !m.isMeshBasicMaterial && !(m.transparent && m.opacity < .6) && (solidLit || o === REAL.mesh);
+    });
+  }
+  fetch("screw-mesh.txt").then(r => r.ok ? r.text() : Promise.reject(r.status)).then(b64 => {
+    const bin = atob(b64.trim()), bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const buf = bytes.buffer;
+    const dv = new DataView(buf), nv = dv.getInt32(0, true), nt = dv.getInt32(4, true);
+    const mn = [0, 1, 2].map(a => dv.getFloat32(8 + a * 4, true)), mx = [0, 1, 2].map(a => dv.getFloat32(20 + a * 4, true));
+    const q = new Uint16Array(buf.slice(32, 32 + nv * 6)), idx = new Uint32Array(buf.slice(32 + nv * 6, 32 + nv * 6 + nt * 12));
+    const pos = new Float32Array(nv * 3);
+    for (let i = 0; i < nv * 3; i++) { const a = i % 3; pos[i] = mn[a] + q[i] / 65535 * (mx[a] - mn[a]) - (mn[a] + mx[a]) / 2; }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setIndex(new THREE.BufferAttribute(idx, 1));
+    // one shader for both looks: the steel-blue print model and an ANSYS-style stress contour (illustrative field)
+    const half = ((mx[2] - mn[2]) / 2).toFixed(3), rad = ((mx[0] - mn[0]) / 2).toFixed(3);
+    REAL.u = { uFea: { value: 0 }, uLoad: { value: 0 } };
+    const mesh = new THREE.Mesh(geo, new THREE.ShaderMaterial({
+      uniforms: REAL.u, side: THREE.DoubleSide, extensions: { derivatives: true },
+      vertexShader: `varying vec3 vP, vV;
+        void main(){ vP = position; vec4 mv = modelViewMatrix * vec4(position, 1.); vV = mv.xyz; gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: `uniform float uFea, uLoad; varying vec3 vP, vV;
+        vec3 jet(float t){ t = clamp(t, 0., 1.); return clamp(vec3(1.5 - abs(4. * t - 3.), 1.5 - abs(4. * t - 2.), 1.5 - abs(4. * t - 1.)), 0., 1.); }
+        void main(){
+          vec3 n = normalize(cross(dFdx(vV), dFdy(vV)));
+          vec3 L = normalize(vec3(.4, .7, .6));
+          float diff = .42 + .58 * max(dot(n, L), 0.);
+          float spec = pow(max(dot(reflect(-L, n), normalize(-vV)), 0.), 28.) * .3;
+          float zN = vP.z / ${half}, r = length(vP.xy) / ${rad}, ang = atan(vP.y, vP.x);
+          float s = .22 + .42 * (1. - zN * zN) + .22 * sin(ang * 12. + vP.z * 1.3) * r + .22 * smoothstep(.5, 1., -zN);
+          s *= .7 + .3 * uLoad;
+          vec3 base = mix(vec3(.50, .61, .77), jet(s), uFea);
+          gl_FragColor = vec4(base * diff + spec, 1.);
+        }`
+    }));
+    const target = 6.6;                                     // scene length of the screw
+    REAL.k = target / (mx[2] - mn[2]);
+    REAL.L = target; REAL.R = (mx[0] - mn[0]) / 2 * REAL.k;
+    REAL.dia = mx[0] - mn[0]; REAL.len = mx[2] - mn[2];
+    mesh.rotation.x = Math.PI / 2;                          // STL z-up, tip pointing down into the bone
+    screw.add(mesh);
+    [lattice, inner, thread, head, tip, tipWire].forEach(o => o.visible = false);
+    REAL.mesh = mesh; REAL.geo = geo;
+    REAL.onload.forEach(fn => fn(geo, mn, mx));
+    applyShadows(scene);
+  }).catch(() => {});
+
+  // engineering-drawing dimensions that track the auxetic stretch (real print model: Ø 12.1 × 37.1 mm)
+  const dims = new THREE.Group(); dims.rotation.z = -.32; scene.add(dims);
+  const dimMat = new THREE.LineBasicMaterial({ color: 0xc9d2dc, transparent: true, opacity: .6 });
+  const segs = arr => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3)); return new THREE.LineSegments(g, dimMat); };
+  const lenDim = segs([0, -.5, 0, 0, .5, 0,  -.12, .5, 0, .12, .5, 0,  -.12, -.5, 0, .12, -.5, 0]);
+  const diaDim = segs([-.5, 0, 0, .5, 0, 0,  -.5, -.12, 0, -.5, .12, 0,  .5, -.12, 0, .5, .12, 0]);
+  dims.add(lenDim, diaDim);
+  const dimFont = "500 64px 'JetBrains Mono', monospace";
+  const lenLbl = textSprite(.55, (g, v = 37.1) => { g.fillStyle = "#e8ecf1"; g.font = dimFont; g.textBaseline = "middle"; g.fillText(`L ${v.toFixed(1)}`, 20, 128); });
+  const diaLbl = textSprite(.55, (g, v = 12.1) => { g.fillStyle = "#e26a00"; g.font = dimFont; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(`Ø ${v.toFixed(2)}`, 256, 128); });
+  const nuLbl = textSprite(.5, g => { g.fillStyle = "#7cb6ff"; g.font = dimFont; g.textBaseline = "middle"; g.fillText("ν < 0", 20, 128); });
+  dims.add(lenLbl, diaLbl, nuLbl);
+
+  /* ---------- portrait: a live, cut-out hologram ----------
+     The photo's white studio background is flood-filled away at load, then the
+     figure assembles from particles, scans in, and stays alive with depth,
+     a rim light, a sweep bar and the odd glitch. */
+  const PHOTO_POS = new THREE.Vector3(3.9, .3, 3.9);
+  const photo = new THREE.Group();
+  photo.position.copy(PHOTO_POS);
+  photo.lookAt(20, .3, 20);
+  const photoBase = photo.quaternion.clone();
+  scene.add(photo);
+  const PW = 3.3, PH = 3.9, PLATE_H = PW * 160 / 660;
+
+  // blueprint backdrop with registration marks
+  const back = document.createElement("canvas"); back.width = 660; back.height = 780;
+  (() => {
+    const g = back.getContext("2d");
+    const grd = g.createLinearGradient(0, 0, 0, 780); grd.addColorStop(0, "#ffffff"); grd.addColorStop(1, "#e6edf7");
+    g.fillStyle = grd; g.fillRect(0, 0, 660, 780);
+    [[22, .14, 1], [110, .34, 2]].forEach(([step, op, lw]) => {
+      g.strokeStyle = `rgba(28,100,216,${op})`; g.lineWidth = lw;
+      for (let x = 0; x <= 660; x += step) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 780); g.stroke(); }
+      for (let y = 0; y <= 780; y += step) { g.beginPath(); g.moveTo(0, y); g.lineTo(660, y); g.stroke(); }
+    });
+    g.strokeStyle = "#e26a00"; g.lineWidth = 4;
+    [[20, 20, 1, 1], [640, 20, -1, 1], [20, 760, 1, -1], [640, 760, -1, -1]].forEach(([x, y, sx, sy]) => {
+      g.beginPath(); g.moveTo(x, y + sy * 40); g.lineTo(x, y); g.lineTo(x + sx * 40, y); g.stroke(); });
+  })();
+  photo.add(new THREE.Mesh(new THREE.PlaneGeometry(PW, PH), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(back) })));
+  const pframe = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(PW + .22, PH + .22)),
+    new THREE.LineBasicMaterial({ color: 0x1c64d8, transparent: true, opacity: .6 }));
+  pframe.position.z = -.04; photo.add(pframe);
+
+  // name plate in front of the torso
+  const plate = document.createElement("canvas"); plate.width = 660; plate.height = 160;
+  const plateTex = new THREE.CanvasTexture(plate);
+  function paintPlate() {
+    const g = plate.getContext("2d");
+    g.fillStyle = "#ffffff"; g.fillRect(0, 0, 660, 160);
+    g.fillStyle = "#e26a00"; g.fillRect(0, 0, 660, 6);
+    g.fillStyle = "#0e1a2b"; g.font = "800 54px 'Bricolage Grotesque', sans-serif"; g.fillText(PROFILE.name, 30, 80);
+    g.fillStyle = "#5a6a82"; g.font = "500 22px 'JetBrains Mono', monospace"; g.fillText(PROFILE.title.toUpperCase(), 32, 126);
+    g.fillStyle = "#1c64d8"; g.textAlign = "right"; g.fillText("IE · 2026", 630, 126); g.textAlign = "left";
+    plateTex.needsUpdate = true;
+  }
+  paintPlate();
+  const plateMesh = new THREE.Mesh(new THREE.PlaneGeometry(PW, PLATE_H), new THREE.MeshBasicMaterial({ map: plateTex }));
+  plateMesh.position.set(0, -PH / 2 + PLATE_H / 2, .32);
+  photo.add(plateMesh);
+
+  // the person: displaced plane, head breaks out of the frame
+  const PERSON_H = 4.2;
+  let PERSON_W = PERSON_H * 4 / 3;
+  const personU = { uMap: { value: null }, uTime: { value: 0 }, uReveal: { value: 0 }, uTexel: { value: new THREE.Vector2(1 / 600, 1 / 450) } };
+  const person = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 160, 120), new THREE.ShaderMaterial({
+    uniforms: personU, transparent: true, depthWrite: false,
+    vertexShader: `uniform sampler2D uMap; uniform float uTime; varying vec2 vUv;
+      void main(){ vUv = uv; vec3 p = position;
+        float a = texture2D(uMap, uv).a;
+        vec2 d = (uv - vec2(.45, .66)) * vec2(1.25, 1.);
+        p.z += a * (.36 * exp(-dot(d, d) * 9.) + .1);         // face forward, body behind
+        p.y += sin(uTime * 1.5) * .004 * uv.y;                 // breathing
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.); }`,
+    fragmentShader: `uniform sampler2D uMap; uniform float uTime, uReveal; uniform vec2 uTexel; varying vec2 vUv;
+      float h(float n){ return fract(sin(n) * 43758.5453); }
+      void main(){
+        vec2 uv = vUv;
+        float gt = floor(uTime * 8.);
+        float glitch = step(.988, h(gt));
+        uv.x += glitch * step(.6, h(floor(uv.y * 30.) + gt)) * (h(gt + 3.) - .5) * .04;
+        vec4 t = texture2D(uMap, uv);
+        float ca = glitch * .005;
+        t.r = texture2D(uMap, uv + vec2(ca, 0.)).r; t.b = texture2D(uMap, uv - vec2(ca, 0.)).b;
+
+        // unsharp mask: subtract a 1-texel blur to crisp up hair, eyes and fabric
+        vec2 e = uTexel;
+        vec3 blur = (texture2D(uMap, uv + vec2(e.x, 0.)).rgb + texture2D(uMap, uv - vec2(e.x, 0.)).rgb
+                   + texture2D(uMap, uv + vec2(0., e.y)).rgb + texture2D(uMap, uv - vec2(0., e.y)).rgb) * .25;
+        vec3 c = t.rgb + (t.rgb - blur) * .9;
+
+        // exposure, contrast and a touch of saturation
+        c *= 1.22;
+        c = (c - .5) * 1.1 + .5;
+        float lum = dot(c, vec3(.299, .587, .114));
+        c = clamp(mix(vec3(lum), c, 1.08), 0., 1.);
+
+        vec2 o = uTexel * 5.;
+        float n = texture2D(uMap, uv + vec2(o.x, 0.)).a + texture2D(uMap, uv - vec2(o.x, 0.)).a
+                + texture2D(uMap, uv + vec2(0., o.y)).a + texture2D(uMap, uv - vec2(0., o.y)).a;
+        float rim = clamp(t.a - n * .25, 0., 1.) * 3.;
+        vec3 cyan = vec3(.11, .39, .85);
+        float bar = smoothstep(.02, 0., abs(vUv.y - (1. - fract(uTime * .16))));
+        c += cyan * (rim * .8 + bar * .1);
+        float edge = 1.02 - uReveal * 1.1;
+        float vis = smoothstep(edge, edge + .03, vUv.y);
+        float line = smoothstep(.03, 0., abs(vUv.y - edge)) * step(.001, uReveal) * step(uReveal, .999);
+        c += cyan * line * 2.;
+        gl_FragColor = vec4(c, t.a * (vis + line) * smoothstep(0., .12, vUv.y));
+      }`
+  }));
+  person.visible = false;
+  photo.add(person);
+
+  const ptsU = { uP: { value: 0 }, uTime: { value: 0 }, uReveal: { value: 0 }, uPx: { value: renderer.getPixelRatio() } };
+  let photoPts = null, assemble = 0;
+
+  function cutout(img) {
+    const W = Math.min(img.width, 1600), H = Math.round(W * img.height / img.width);   // full source resolution
+    const c = document.createElement("canvas"); c.width = W; c.height = H;
+    const g = c.getContext("2d"); g.drawImage(img, 0, 0, W, H);
+    const d = g.getImageData(0, 0, W, H).data, bg = new Uint8Array(W * H), q = new Int32Array(W * H);
+    let qh = 0, qt = 0;
+    const isBg = i => { const r = d[i * 4], gg = d[i * 4 + 1], b = d[i * 4 + 2], mn = Math.min(r, gg, b); return mn > 220 && Math.max(r, gg, b) - mn < 20; };
+    const seed = i => { if (!bg[i] && isBg(i)) { bg[i] = 1; q[qt++] = i; } };
+    for (let x = 0; x < W; x++) seed(x);                       // top edge
+    for (let y = 0; y < H; y++) { seed(y * W); seed(y * W + W - 1); } // sides (not the bottom: the shirt touches it)
+    while (qh < qt) { const i = q[qh++], x = i % W, y = (i / W) | 0;
+      if (x > 0) seed(i - 1); if (x < W - 1) seed(i + 1); if (y > 0) seed(i - W); if (y < H - 1) seed(i + W); }
+    const m = document.createElement("canvas"); m.width = W; m.height = H;
+    const mg = m.getContext("2d"), md = mg.createImageData(W, H);
+    for (let i = 0; i < W * H; i++) {                          // erode 1px to drop the white halo
+      const x = i % W;
+      const near = bg[i] || (x > 0 && bg[i - 1]) || (x < W - 1 && bg[i + 1]) || bg[i - W] || bg[i + W];
+      md.data[i * 4 + 3] = near ? 0 : 255;
+    }
+    mg.putImageData(md, 0, 0);
+    const out = document.createElement("canvas"); out.width = W; out.height = H;
+    const og = out.getContext("2d");
+    og.filter = "blur(1px)"; og.drawImage(m, 0, 0); og.filter = "none";
+    og.globalCompositeOperation = "source-in"; og.drawImage(img, 0, 0, W, H);
+    return out;
+  }
+
+  function buildPortrait(img) {
+    const out = cutout(img), W = out.width, H = out.height;
+    PERSON_W = PERSON_H * W / H;
+    person.scale.set(PERSON_W, PERSON_H, 1);
+    person.position.set(0, -PH / 2 + PLATE_H * .6 + PERSON_H / 2, .15);
+    personU.uTexel.value.set(1 / W, 1 / H);
+    const tex = new THREE.CanvasTexture(out);
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
+    personU.uMap.value = tex;
+    person.visible = true;
+
+    // particles sampled from the cut-out, flying in from a scattered cloud
+    const px = out.getContext("2d").getImageData(0, 0, W, H).data, step = Math.round(W / (innerWidth < 820 ? 120 : 150));
+    const tgt = [], st = [], col = [], rnd = [];
+    for (let y = 0; y < H; y += step) for (let x = 0; x < W; x += step) {
+      const i = (y * W + x) * 4; if (px[i + 3] < 200) continue;
+      const u = x / W, v = 1 - y / H;
+      tgt.push((u - .5) * PERSON_W, (v - .5) * PERSON_H, .2);
+      const a = Math.random() * Math.PI * 2, rr = 3 + Math.random() * 5;
+      st.push(Math.cos(a) * rr, (Math.random() - .5) * 8, Math.sin(a) * rr * .6 + 2);
+      col.push(px[i] / 255, px[i + 1] / 255, px[i + 2] / 255); rnd.push(Math.random());
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(tgt, 3));
+    geo.setAttribute("start", new THREE.Float32BufferAttribute(st, 3));
+    geo.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
+    geo.setAttribute("rnd", new THREE.Float32BufferAttribute(rnd, 1));
+    photoPts = new THREE.Points(geo, new THREE.ShaderMaterial({
+      uniforms: ptsU, transparent: true, depthWrite: false,
+      vertexShader: `attribute vec3 start; attribute vec3 color; attribute float rnd;
+        uniform float uP, uTime, uPx, uReveal; varying vec3 vC; varying float vA;
+        void main(){
+          float top = 1. - (position.y / ${PERSON_H.toFixed(2)} + .5);
+          float t = clamp((uP - rnd * .3 - top * .3) / .4, 0., 1.);
+          t = 1. - pow(1. - t, 3.);
+          vec3 p = mix(start, position, t);
+          p.x += sin(t * 3.1416) * sin(rnd * 40.) * .8;
+          p += vec3(sin(uTime * 2. + rnd * 20.), cos(uTime * 1.7 + rnd * 11.), 0.) * .015;
+          vec4 mv = modelViewMatrix * vec4(p, 1.);
+          gl_Position = projectionMatrix * mv;
+          gl_PointSize = (1.6 + rnd * 1.4) * uPx * (16. / -mv.z);
+          vC = mix(vec3(.11, .39, .85), color, t);
+          vA = (1. - uReveal) * mix(.35, 1., t);
+        }`,
+      fragmentShader: `varying vec3 vC; varying float vA;
+        void main(){ float d = length(gl_PointCoord - .5); if (d > .5) discard; gl_FragColor = vec4(vC, vA); }`
+    }));
+    photoPts.position.copy(person.position);
+    photoPts.visible = false;
+    photo.add(photoPts);
+  }
+  if (PROFILE.photo) { const im = new Image(); im.onload = () => buildPortrait(im); im.src = PROFILE.photo; }
+
+  /* ---------- project cards on a descending helix ---------- */
+  const R = 7;
+  const cardData = PROFILE.projects.map((p, i) => {
+    const a = i * 1.45 + 0.7, y = -8 - i * 6.5;
+    return { a, y, pos: new THREE.Vector3(Math.cos(a) * R, y, Math.sin(a) * R), p };
+  });
+
+  function cardTexture(p, i, img) {
+    const c = document.createElement("canvas"); c.width = 1024; c.height = 640;
+    const g = c.getContext("2d");
+    if (img) {                                             // photo cover with a caption band
+      const s = Math.max(1024 / img.width, 640 / img.height), w = img.width * s, h = img.height * s;
+      const x = Math.min(0, Math.max(1024 - w, 512 - p.cover.fx * w)), y = Math.min(0, Math.max(640 - h, 320 - p.cover.fy * h));
+      g.drawImage(img, x, y, w, h);
+      const shade = g.createLinearGradient(0, 330, 0, 640);
+      shade.addColorStop(0, "rgba(8,19,31,0)"); shade.addColorStop(1, "rgba(8,19,31,.88)");
+      g.fillStyle = shade; g.fillRect(0, 330, 1024, 310);
+      g.fillStyle = p.colors[0]; g.fillRect(0, 0, 1024, 8);
+      g.fillStyle = "#ffffff"; g.font = "500 26px 'JetBrains Mono', monospace";
+      g.fillText(`${String(i + 1).padStart(2, "0")}  —  ${(p.year || p.role).toUpperCase()}`, 64, 470);
+      let fs = 92; g.font = `800 ${fs}px 'Bricolage Grotesque', sans-serif`;
+      while (g.measureText(p.title).width > 900 && fs > 44) { fs -= 4; g.font = `800 ${fs}px 'Bricolage Grotesque', sans-serif`; }
+      g.fillText(p.title, 60, 560);
+      g.fillStyle = "rgba(255,255,255,.75)"; g.font = "500 22px 'JetBrains Mono', monospace";
+      g.fillText(p.tags.join("  ·  ").toUpperCase(), 64, 604);
+      const tex = new THREE.CanvasTexture(c); tex.anisotropy = 8; return tex;
+    }
+    const grd = g.createLinearGradient(0, 0, 1024, 640);
+    grd.addColorStop(0, "#ffffff"); grd.addColorStop(1, "#e9eff8");
+    g.fillStyle = grd; g.fillRect(0, 0, 1024, 640);
+    let seed = (i + 1) * 9301;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const cx = 620 + rnd() * 300, cy = 200 + rnd() * 220;
+    for (let k = 0; k < 26; k++) {
+      g.beginPath();
+      const r0 = 30 + k * 26;
+      for (let t = 0; t <= Math.PI * 2 + .01; t += .05) {
+        const w = 1 + .18 * Math.sin(t * 3 + k * .4 + i) + .08 * Math.sin(t * 7 + k);
+        const x = cx + Math.cos(t) * r0 * w, y = cy + Math.sin(t) * r0 * w * .72;
+        t === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+      }
+      g.strokeStyle = k % 5 === 0 ? p.colors[0] : p.colors[1];
+      g.globalAlpha = k % 5 === 0 ? .85 : .28; g.lineWidth = k % 5 === 0 ? 2.5 : 1.5; g.stroke();
+    }
+    g.globalAlpha = 1;
+    g.strokeStyle = "rgba(20,40,80,.2)"; g.lineWidth = 2; g.strokeRect(24, 24, 976, 592);
+    g.fillStyle = p.colors[0]; g.font = "500 26px 'JetBrains Mono', monospace";
+    g.fillText(`${String(i + 1).padStart(2, "0")}  —  ${(p.year || p.role).toUpperCase()}`, 64, 92);
+    let fs = 104;
+    g.font = `800 ${fs}px 'Bricolage Grotesque', sans-serif`;
+    while (g.measureText(p.title).width > 900 && fs > 48) { fs -= 4; g.font = `800 ${fs}px 'Bricolage Grotesque', sans-serif`; }
+    g.fillStyle = "#0e1a2b"; g.fillText(p.title, 60, 530);
+    g.fillStyle = "#5a6a82"; g.font = "500 24px 'JetBrains Mono', monospace";
+    g.fillText(p.tags.join("  ·  ").toUpperCase(), 64, 582);
+    const tex = new THREE.CanvasTexture(c); tex.anisotropy = 8; return tex;
+  }
+
+  const cardVS = `
+    uniform float uTime, uFocus; varying vec2 vUv;
+    void main(){ vUv = uv; vec3 p = position;
+      p.z += sin(p.x*1.2 + uTime*1.4) * .08 * (1. - uFocus) + sin(p.y*2. + uTime) * .03;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.); }`;
+  const cardFS = `
+    uniform sampler2D uMap; uniform float uFocus, uTime; uniform vec3 uTint; varying vec2 vUv;
+    void main(){ vec4 t = texture2D(uMap, vUv);
+      float scan = smoothstep(.0,.02, abs(fract(vUv.y*2. - uTime*.15) - .5) - .47);
+      vec3 c = t.rgb * mix(.82, 1., uFocus) + uTint * (1.-scan) * .12 * uFocus;
+      float edge = 1. - smoothstep(0., .012, min(min(vUv.x,1.-vUv.x), min(vUv.y,1.-vUv.y)));
+      c += uTint * edge * (.4 + .6*uFocus);
+      gl_FragColor = vec4(c, mix(.55, 1., uFocus)); }`;
+
+  const cards = cardData.map(d => {
+    const u = { uMap: { value: null }, uTime: { value: 0 }, uFocus: { value: 0 }, uTint: { value: new THREE.Color(d.p.colors[0]) } };
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 3.5, 32, 20),
+      new THREE.ShaderMaterial({ uniforms: u, vertexShader: cardVS, fragmentShader: cardFS, transparent: true, side: THREE.DoubleSide }));
+    m.position.copy(d.pos);
+    m.lookAt(Math.cos(d.a) * 30, d.y, Math.sin(d.a) * 30);
+    m.userData = { u, base: m.quaternion.clone() };
+    scene.add(m);
+    return m;
+  });
+  const imgCache = {};
+  const loadImg = src => imgCache[src] || (imgCache[src] = new Promise(res => {
+    const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }));
+  const paintAll = () => {
+    cards.forEach((m, i) => {
+      const p = PROFILE.projects[i];
+      if (p.anim) return;                                   // animated cards paint themselves
+      m.userData.u.uMap.value = cardTexture(p, i);
+      if (p.cover) loadImg(p.cover.src).then(im => { if (im) m.userData.u.uMap.value = cardTexture(p, i, im); });
+    });
+    paintPlate();
+  };
+  paintAll();
+  if (document.fonts) document.fonts.ready.then(paintAll);
+
+  // project photos pinned around their card like a site-visit board
+  const floaters = [];
+  const SPOTS = [[-2.75, 2.2, -.9, .07], [2.6, -2.1, -1.1, -.05], [2.9, 2.0, -1.5, -.04], [-3.2, -1.8, -1.4, .05]];
+  cards.forEach((m, i) => {
+    const p = PROFILE.projects[i];
+    if (!p.gallery || p.floaters === false) return;
+    const board = new THREE.Group(); board.position.copy(m.position); board.quaternion.copy(m.userData.base); scene.add(board);
+    p.gallery.filter(ph => !p.cover || ph.src !== p.cover.src).forEach((ph, k) => loadImg(ph.src).then(im => {
+      if (!im) return;
+      const H = 1.8, W = H * im.width / im.height;
+      const tex = new THREE.Texture(im); tex.needsUpdate = true; tex.anisotropy = 8;
+      const f = new THREE.Group();
+      f.add(new THREE.Mesh(new THREE.PlaneGeometry(W + .16, H + .16), new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })));
+      const pic = new THREE.Mesh(new THREE.PlaneGeometry(W, H), new THREE.MeshBasicMaterial({ map: tex })); pic.position.z = .006; f.add(pic);
+      const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(W + .16, H + .16)), new THREE.LineBasicMaterial({ color: 0x34507a, transparent: true, opacity: .45 }));
+      f.add(edge);
+      const pin = new THREE.Mesh(new THREE.CircleGeometry(.07, 16), new THREE.MeshBasicMaterial({ color: new THREE.Color(p.colors[0]) }));
+      pin.position.set(0, H / 2 - .02, .012); f.add(pin);
+      const [x, y, z, r] = SPOTS[k % SPOTS.length];
+      f.position.set(i % 2 ? -x : x, y, z); f.rotation.z = r;
+      f.userData = { y, ph: k * 1.7 + i };
+      board.add(f); floaters.push(f);
+    }));
+  });
+
+  const yTop = -3, yBot = cardData[cardData.length - 1].y - 8;
+  const FLOOR_TOP = -4.3, FLOOR_BOT = yBot - 11;
+  const helixAngle = y => 0.7 + ((y + 8) / -6.5) * 1.45;
+
+  /* =========================================================
+     PROJECT EXHIBITS: animated CAD-style models in front of their cards.
+     Each sits as an exploded view and assembles when its card is in focus.
+     ========================================================= */
+  const STD = (c, o) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: .62, metalness: .05 }, o || {}));
+  const OUTLINE = new THREE.LineBasicMaterial({ color: 0x1b2638, transparent: true, opacity: .28 });
+  function solid(geo, mat, edges = true) {
+    const m = new THREE.Mesh(geo, mat);
+    if (edges) m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), OUTLINE));
+    return m;
+  }
+  const V3 = a => new THREE.Vector3(a[0], a[1], a[2]);
+  function newExhibit() {
+    const ex = { root: new THREE.Group(), parts: [], fades: [] };
+    ex.P = (obj, pos, off) => { obj.position.set(pos[0], pos[1], pos[2]); ex.root.add(obj); ex.parts.push({ obj, home: obj.position.clone(), off: V3(off) }); return obj; };
+    return ex;
+  }
+
+  function buildO2() {
+    const ex = newExhibit(), P = ex.P;
+    ex.flows = []; ex.needles = []; ex.bubbles = [];
+    const woodDark = STD(0x7a4b2a, { roughness: .8 }), woodLight = STD(0xb57c45, { roughness: .8 });
+    const metal = STD(0xc9ced6, { roughness: .35, metalness: .35 }), dark = STD(0x3a4452, { roughness: .5 });
+    const glass = STD(0xcfe8ff, { transparent: true, opacity: .35, roughness: .1 });
+    const green = STD(0x8fdcaa, { transparent: true, opacity: .5, roughness: .15 });
+    P(solid(new THREE.BoxGeometry(3.6, .12, 2.2), woodLight), [0, .06, 0], [0, -.9, 0]);            // base
+    P(solid(new THREE.BoxGeometry(3.2, 3.6, .12), woodDark), [0, 1.92, -.95], [0, 0, -1.4]);         // backboard
+    const col = new THREE.Group();                                                                   // zeolite column
+    const body = solid(new THREE.CylinderGeometry(.45, .45, 1.8, 32), metal); body.position.y = 1.25; col.add(body);
+    const cap = solid(new THREE.CylinderGeometry(.5, .5, .2, 32), metal); cap.position.y = 2.25; col.add(cap);
+    const ring = solid(new THREE.CylinderGeometry(.48, .48, .06, 32), dark); ring.position.y = 2.08; col.add(ring);
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(.45, 24, 12, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), metal); dome.position.y = .35; col.add(dome);
+    P(col, [-.15, 0, -.4], [0, .3, 1.6]);
+    const pre = new THREE.Group();                                                                   // pre-filter
+    const pb = solid(new THREE.CylinderGeometry(.3, .3, 1.7, 28), metal); pb.position.y = 1.3; pre.add(pb);
+    const knurl = solid(new THREE.CylinderGeometry(.35, .35, .32, 12), STD(0xe6e9ee, { flatShading: true })); knurl.position.y = 2.3; pre.add(knurl);
+    P(pre, [1.05, 0, -.45], [.9, .3, 1.3]);
+    P(solid(new THREE.BoxGeometry(2.1, .1, .06), dark), [.45, 1.75, .12], [0, 0, 2]);                // strap
+    const comp = solid(new THREE.CylinderGeometry(.2, .2, .7, 20), dark); comp.rotation.z = Math.PI / 2 - .4;
+    P(comp, [-.35, .4, .45], [-.7, -.6, 1.3]);                                                       // compressor
+    [[-.95, 3.25, .3], [-.2, 3.3, .34]].forEach(([x, y, r], k) => {                                   // pressure gauges
+      const g = new THREE.Group();
+      const rim = solid(new THREE.CylinderGeometry(r, r, .12, 32), dark); rim.rotation.x = Math.PI / 2; g.add(rim);
+      const face = new THREE.Mesh(new THREE.CircleGeometry(r * .86, 32), STD(0xf4f6f9)); face.position.z = .065; g.add(face);
+      const tk = [];
+      for (let a = -2.3; a <= 2.31; a += .46) tk.push(Math.sin(a) * r * .66, Math.cos(a) * r * .66, .07, Math.sin(a) * r * .8, Math.cos(a) * r * .8, .07);
+      const tg = new THREE.BufferGeometry(); tg.setAttribute("position", new THREE.Float32BufferAttribute(tk, 3));
+      g.add(new THREE.LineSegments(tg, new THREE.LineBasicMaterial({ color: 0x1b2638 })));
+      const needle = new THREE.Mesh(new THREE.BoxGeometry(.025, r * .72, .01), new THREE.MeshBasicMaterial({ color: 0xd6336c }));
+      needle.geometry.translate(0, r * .36, 0); needle.position.z = .08; g.add(needle);
+      ex.needles.push({ m: needle, k });
+      P(g, [x, y, -.8], [0, 1.1, 1.1]);
+    });
+    P(new THREE.Mesh(new THREE.SphereGeometry(.13, 16, 12), STD(0x1c64d8, { metalness: .3, roughness: .3 })), [-.58, 3.02, -.78], [0, 1.1, 1.3]);
+    const fm = new THREE.Group();                                                                    // flowmeter with float
+    fm.add(new THREE.Mesh(new THREE.CylinderGeometry(.11, .11, .95, 20), glass));
+    ex.ball = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 10), STD(0xe26a00)); fm.add(ex.ball);
+    P(fm, [-1.8, 3.35, -.45], [-1.1, .9, .7]);
+    const hb = new THREE.Group();                                                                    // humidifier bottle
+    hb.add(new THREE.Mesh(new THREE.CylinderGeometry(.32, .32, 1, 28), green));
+    const lid = solid(new THREE.CylinderGeometry(.24, .28, .18, 24), dark); lid.position.y = .58; hb.add(lid);
+    for (let b = 0; b < 14; b++) {
+      const s = new THREE.Mesh(new THREE.SphereGeometry(.035, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .85 }));
+      s.userData.seed = Math.random(); hb.add(s); ex.bubbles.push(s);
+    }
+    P(hb, [-1.8, 2.25, -.45], [-1.3, 0, .9]);
+    const mask = new THREE.Group();                                                                  // mask
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(.36, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), green);
+    shell.rotation.x = Math.PI / 2; shell.scale.set(1, .6, 1.25); mask.add(shell);
+    mask.add(new THREE.Mesh(new THREE.TorusGeometry(.4, .015, 6, 40), dark));
+    P(mask, [-2.2, .95, .55], [-1.5, -.4, 1.2]);
+    const routes = [
+      { pts: [[-.1, .45, .5], [.4, .22, .55], [.9, .25, .1], [1.05, .45, -.45]], c: 0x8fa6c9 },      // air: compressor → pre-filter
+      { pts: [[1.05, 2.47, -.45], [.8, 2.95, -.65], [.2, 3.0, -.7], [-.15, 2.45, -.4]], c: 0x8fa6c9 }, // → zeolite column
+      { pts: [[-.15, 2.45, -.4], [-.2, 2.8, -.6], [-.58, 3.02, -.78]], c: 0x1c64d8 },                // oxygen out
+      { pts: [[-.58, 3.02, -.78], [-1.2, 3.08, -.6], [-1.8, 2.88, -.45]], c: 0x1c64d8 },             // → flowmeter
+      { pts: [[-2.05, 2.55, -.45], [-2.5, 2.1, -.1], [-2.45, 1.4, .35], [-2.2, 1.0, .5]], c: 0x1c64d8 } // → mask
+    ];
+    routes.forEach(rt => {
+      const curve = new THREE.CatmullRomCurve3(rt.pts.map(V3));
+      const hm = STD(0x8a94a6, { roughness: .5, transparent: true });
+      ex.root.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 48, .04, 8, false), hm)); ex.fades.push(hm);
+      const n = 12, g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(n * 3), 3));
+      const pm = new THREE.PointsMaterial({ color: rt.c, size: .11, transparent: true, depthWrite: false });
+      const pts = new THREE.Points(g, pm); pts.frustumCulled = false; ex.root.add(pts); ex.fades.push(pm);
+      ex.flows.push({ curve, pts, n });
+    });
+    ex.o2 = textSprite(.45, g => { g.fillStyle = "#7cb6ff"; g.font = "700 120px 'JetBrains Mono', monospace"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("O₂", 256, 128); });
+    ex.o2.position.set(-2.25, 1.6, .75); ex.root.add(ex.o2); ex.fades.push(ex.o2.material);
+    return ex;
+  }
+
+  function buildTable() {
+    const ex = newExhibit(), P = ex.P;
+    const wood = STD(0xc8955e, { roughness: .75 }), woodTop = STD(0xe0b07a, { roughness: .7 }), drawerM = STD(0x9a6a3e, { roughness: .75 });
+    const teal = STD(0x2bb3c0, { roughness: .4, metalness: .2 }), black = STD(0x2d3138, { roughness: .6 }), brass = STD(0xb89b5e, { metalness: .5, roughness: .35 });
+    [-1.45, 1.45].forEach((x, k) => {                                                                // X-frame sides
+      const side = new THREE.Group();
+      [1, -1].forEach(sg => { const bar = solid(new THREE.BoxGeometry(.12, 2.8, .16), wood); bar.rotation.x = sg * Math.atan2(1.8, 2.1); bar.position.y = 1.05; side.add(bar); });
+      P(side, [x, 0, 0], [k ? 1.3 : -1.3, 0, 0]);
+    });
+    P(solid(new THREE.BoxGeometry(2.9, .1, .12), wood), [0, .55, 0], [0, -.8, 0]);                   // stretcher
+    P(solid(new THREE.BoxGeometry(3.2, .14, 2.0), woodTop), [0, 2.17, 0], [0, .5, 0]);               // desk top
+    ex.drawers = [-.72, .72].map(x => {
+      const dr = new THREE.Group();
+      dr.add(solid(new THREE.BoxGeometry(1.3, .34, 1.5), drawerM));
+      const knob = new THREE.Mesh(new THREE.SphereGeometry(.05, 10, 8), brass); knob.position.set(0, 0, .77); dr.add(knob);
+      return P(dr, [x, 1.9, .2], [0, 0, 1.4]);
+    });
+    ex.hinge = new THREE.Group();                                                                    // tilting board, hinged at the front
+    const board = solid(new THREE.BoxGeometry(3.3, .08, 2.2), woodTop); board.position.set(0, .04, -1.1); ex.hinge.add(board);
+    const ledge = solid(new THREE.BoxGeometry(3.3, .1, .08), wood); ledge.position.set(0, .1, -.02); ex.hinge.add(ledge);
+    const tray = solid(new THREE.BoxGeometry(.7, .04, 2.0), wood); tray.position.set(1.3, .1, -1.1); ex.hinge.add(tray);
+    [[-1.85, .1], [-1.45, .1], [-.95, .12]].forEach(([z, r]) => {
+      const h = new THREE.Mesh(new THREE.CircleGeometry(r, 18), black); h.rotation.x = -Math.PI / 2; h.position.set(1.3, .125, z); ex.hinge.add(h); });
+    P(ex.hinge, [0, 2.26, 1.0], [0, 1.5, 0]);
+    ex.ang = textSprite(.4, (g, v = 0) => { g.fillStyle = "#1f9d55"; g.font = "600 88px 'JetBrains Mono', monospace"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(`∠ ${Math.round(v)}°`, 256, 128); });
+    ex.ang.position.set(-2.2, 2.6, 1.0); ex.root.add(ex.ang); ex.fades.push(ex.ang.material);
+    const lamp = new THREE.Group();                                                                  // gooseneck lamp
+    lamp.add(new THREE.Mesh(new THREE.CylinderGeometry(.16, .18, .05, 20), brass));
+    const neck = new THREE.CatmullRomCurve3([[0, 0, 0], [0, 1.2, 0], [.1, 2.0, .1], [.5, 2.35, .35], [.85, 2.1, .55]].map(V3));
+    lamp.add(new THREE.Mesh(new THREE.TubeGeometry(neck, 40, .03, 8, false), brass));
+    const headL = solid(new THREE.BoxGeometry(.16, .3, .12), brass); headL.position.set(.88, 1.98, .58); lamp.add(headL);
+    ex.beam = new THREE.Mesh(new THREE.ConeGeometry(.55, 1.4, 24, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0xffd666, transparent: true, opacity: .16, depthWrite: false, side: THREE.DoubleSide }));
+    ex.beam.position.set(.95, 1.2, .7); lamp.add(ex.beam);
+    P(lamp, [-1.45, 2.24, -.8], [-.9, 1.4, -.6]);
+    const stool = new THREE.Group(), star = new THREE.Group();                                       // swivel stool
+    for (let k = 0; k < 5; k++) {
+      const a = k / 5 * Math.PI * 2;
+      const leg = solid(new THREE.BoxGeometry(.7, .08, .12), teal); leg.position.set(Math.cos(a) * .35, .2, Math.sin(a) * .35); leg.rotation.y = -a; star.add(leg);
+      const wheel = new THREE.Mesh(new THREE.SphereGeometry(.07, 10, 8), black); wheel.position.set(Math.cos(a) * .7, .07, Math.sin(a) * .7); star.add(wheel);
+    }
+    const hub = solid(new THREE.CylinderGeometry(.1, .1, .25, 16), teal); hub.position.y = .25; star.add(hub);
+    stool.add(star);
+    ex.lift = new THREE.Group();
+    const post = solid(new THREE.CylinderGeometry(.07, .07, .7, 14), teal); post.position.y = .6; ex.lift.add(post);
+    const seat = solid(new THREE.CylinderGeometry(.55, .52, .2, 32), black); seat.position.y = 1.0; ex.lift.add(seat);
+    const stem = solid(new THREE.BoxGeometry(.06, .7, .06), black); stem.position.set(0, 1.4, -.5); ex.lift.add(stem);
+    const back = solid(new THREE.BoxGeometry(.7, .4, .08), black); back.position.set(0, 1.8, -.52); ex.lift.add(back);
+    stool.add(ex.lift);
+    P(stool, [2.7, 0, .9], [1.4, 0, .4]);
+    return ex;
+  }
+
+  const exhibits = [];
+  cards.forEach((m, i) => {
+    const kind = PROFILE.projects[i].exhibit;
+    if (!kind) return;
+    const ex = kind === "o2" ? buildO2() : buildTable();
+    ex.kind = kind; ex.card = m; ex.explode = 1;
+    const holder = new THREE.Group(); holder.position.copy(m.position); holder.quaternion.copy(m.userData.base); scene.add(holder);
+    ex.root.scale.setScalar(kind === "o2" ? .7 : .66);
+    ex.root.position.set(kind === "o2" ? 1.15 : .95, -1.95, 1.7);
+    ex.root.rotation.y = kind === "o2" ? -.35 : -.55;
+    holder.add(ex.root);
+    exhibits.push(ex);
+  });
+
+  function updateExhibits(t, dt) {
+    exhibits.forEach(ex => {
+      const target = 1 - Math.min(1, ex.card.userData.u.uFocus.value * 1.15);
+      ex.explode += (target - ex.explode) * Math.min(1, dt * 2.2);
+      const e = ex.explode * ex.explode * (3 - 2 * ex.explode);
+      ex.parts.forEach(p => p.obj.position.copy(p.home).addScaledVector(p.off, e));
+      const vis = Math.max(0, 1 - e * 3);
+      ex.fades.forEach(m => { m.opacity = vis; m.visible = vis > .01; });
+      if (ex.kind === "o2") {
+        ex.flows.forEach((fl, k) => {
+          const a = fl.pts.geometry.attributes.position;
+          for (let j = 0; j < fl.n; j++) { const p = fl.curve.getPointAt((j / fl.n + t * .35 + k * .13) % 1); a.setXYZ(j, p.x, p.y, p.z); }
+          a.needsUpdate = true;
+        });
+        ex.needles.forEach(nd => { nd.m.rotation.z = -(.9 + .25 * Math.sin(t * 1.6 + nd.k * 1.3) + .04 * Math.sin(t * 11)) * (1 - e) + 1.2 * e; });
+        ex.ball.position.y = .1 + .12 * Math.sin(t * 2.1);
+        ex.bubbles.forEach(b => {
+          const u = (b.userData.seed + t * .45) % 1;
+          b.position.set(Math.sin(b.userData.seed * 40) * .18, -.45 + u * .9, Math.cos(b.userData.seed * 23) * .18);
+          b.visible = e < .5;
+        });
+        const pulse = 1 + .08 * Math.sin(t * 3); ex.o2.scale.set(.9 * pulse, .45 * pulse, 1);
+      } else {
+        const th = 12 + 28 * (.5 - .5 * Math.cos(t * .7));                                          // board angle, degrees
+        ex.hinge.rotation.x = THREE.MathUtils.degToRad(th) * (1 - e);
+        if ((frameNo & 7) === 0) ex.ang.userData.redraw(th);
+        ex.drawers.forEach((d, k) => { d.position.z += Math.max(0, Math.sin(t * .9 + k * 2.4)) * .55 * (1 - e); });
+        ex.lift.rotation.y = Math.sin(t * .6) * 1.2;
+        ex.lift.position.y = .12 * (.5 + .5 * Math.sin(t * .8));
+        ex.beam.material.opacity = (.12 + .05 * Math.sin(t * 2)) * (1 - e);
+      }
+    });
+  }
+
+  /* =========================================================
+     LEAN & KAIZEN LINE on the top shop floor
+     Stages follow the cement plant from the Akij attachment.
+     ========================================================= */
+  const LEAN_C = new THREE.Vector3(-9.9, FLOOR_TOP, -9.9);
+  const lean = new THREE.Group(); lean.position.copy(LEAN_C); lean.lookAt(0, FLOOR_TOP, 0); lean.scale.setScalar(.66); scene.add(lean);
+  const LN = { andon: [], flow: 0, lastK: -1, lastW: -1 };
+  const deck = solid(new THREE.BoxGeometry(11, .15, 4.6), STD(0xeef2f7)); deck.position.y = .075; lean.add(deck);
+  [2.2, -2.2].forEach(z => { const tape = new THREE.Mesh(new THREE.BoxGeometry(11, .02, .08), STD(0xf2c200)); tape.position.set(0, .16, z); lean.add(tape); }); // 5S floor marking
+  ["INTAKE", "VRM", "KILN", "CCR", "PACK"].forEach((name, k) => {
+    const x = -4 + k * 2;
+    const mach = solid(new THREE.BoxGeometry(1.2, 1.1, 1.0), STD(0xdfe6ef)); mach.position.set(x, .7, -.7); lean.add(mach);
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(.5, .3), new THREE.MeshBasicMaterial({ color: 0x1c64d8 })); scr.position.set(x + .2, .95, -.19); lean.add(scr);
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, .6, 8), STD(0x5a6a82)); pole.position.set(x - .45, 1.55, -.9); lean.add(pole);
+    LN.andon.push([0x1f9d55, 0xf2a900, 0xd6336c].map((c, j) => {
+      const l = new THREE.Mesh(new THREE.CylinderGeometry(.07, .07, .12, 12), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: .2 }));
+      l.position.set(x - .45, 1.9 + j * .13, -.9); lean.add(l); return l;
+    }));
+    const tag = textSprite(.32, g => { g.fillStyle = "#e8ecf1"; g.font = "600 76px 'JetBrains Mono', monospace"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(name, 256, 128); });
+    tag.position.set(x, 1.6, -.4); lean.add(tag);
+  });
+  const beltL = solid(new THREE.BoxGeometry(10.4, .12, .6), STD(0x3a4452)); beltL.position.set(0, .42, .55); lean.add(beltL);
+  LN.items = Array.from({ length: 16 }, () => { const b = solid(new THREE.BoxGeometry(.26, .22, .26), STD(0x1c64d8)); lean.add(b); return b; });
+  LN.wip = [-3, -1, 1, 3].map(x => Array.from({ length: 8 }, (_, n) => {
+    const c = solid(new THREE.BoxGeometry(.24, .2, .24), STD(0xe26a00));
+    c.position.set(x + (n % 2 ? .14 : -.14), .26 + Math.floor(n / 2) * .21, -.05); lean.add(c); return c;
+  }));
+  // Kaizen slope: the PDCA wheel climbs one step per cycle, a standard wedged behind each gain
+  const RAMP_L = 9.5, WR = .55, RAMP_U = RAMP_L - 1.6;
+  const ramp = new THREE.Group(); ramp.position.set(-4.6, .2, -1.8); ramp.rotation.z = .2; lean.add(ramp);
+  const slab = solid(new THREE.BoxGeometry(RAMP_L, .1, .5), STD(0xc9d6e8)); slab.position.x = RAMP_L / 2; ramp.add(slab);
+  LN.wheel = new THREE.Group(); ramp.add(LN.wheel);
+  [[0x1c64d8, "P"], [0x9b3fd1, "A"], [0x1f9d55, "C"], [0xe26a00, "D"]].forEach(([c, letter], k) => {
+    const a0 = k * Math.PI / 2;
+    LN.wheel.add(new THREE.Mesh(new THREE.CircleGeometry(WR, 20, a0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide })));
+    const s = textSprite(.28, g => { g.fillStyle = "#ffffff"; g.font = "800 150px 'Bricolage Grotesque', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(letter, 256, 128); });
+    s.position.set(Math.cos(a0 + Math.PI / 4) * WR * .55, Math.sin(a0 + Math.PI / 4) * WR * .55, .02); LN.wheel.add(s);
+  });
+  const wedgeShape = new THREE.Shape(); wedgeShape.moveTo(0, 0); wedgeShape.lineTo(.5, 0); wedgeShape.lineTo(.5, .35); wedgeShape.closePath();
+  const wedgeGeo = new THREE.ExtrudeGeometry(wedgeShape, { depth: .4, bevelEnabled: false }); wedgeGeo.translate(-.5, .05, -.2);
+  LN.wedges = [0, 1, 2, 3].map(j => { const w = solid(wedgeGeo, STD(0x5a6a82)); w.position.x = .8 + (j + 1) / 4 * RAMP_U - WR; w.visible = false; ramp.add(w); return w; });
+  LN.board = textSprite(1, (g, k = 0, wip = 8) => {
+    g.fillStyle = "rgba(255,255,255,.94)"; g.fillRect(8, 30, 496, 196); g.strokeStyle = "#34507a"; g.lineWidth = 3; g.strokeRect(8, 30, 496, 196);
+    g.fillStyle = "#5a6a82"; g.font = "500 24px 'JetBrains Mono', monospace"; g.fillText("KAIZEN CYCLE", 30, 72);
+    g.fillStyle = "#0e1a2b"; g.font = "800 64px 'Bricolage Grotesque', sans-serif"; g.fillText(`${k + 1} / 4`, 30, 140);
+    g.fillStyle = "#5a6a82"; g.font = "500 22px 'JetBrains Mono', monospace"; g.fillText("WIP", 270, 72);
+    for (let n = 0; n < 8; n++) { g.fillStyle = n < wip ? "#e26a00" : "#dfe6ef"; g.fillRect(270 + n * 27, 86, 21, 40); }
+    g.fillStyle = "#5a6a82"; g.fillText("FLOW", 270, 166); g.fillStyle = "#1f9d55"; g.fillRect(270, 178, 60 + k * 50, 16);
+    g.fillStyle = "#8f99b5"; g.font = "400 16px 'JetBrains Mono', monospace"; g.fillText("illustrative", 30, 204);
+  });
+  LN.board.position.set(3.4, 3.5, -1.4); lean.add(LN.board);
+
+  function updateLean(t, dt) {
+    const T = 20, ph = (t % T) / T;
+    const back = ph > .94 ? (ph - .94) / .06 : 0;                                // roll back and restart
+    const prog = back ? 1 : ph / .94;
+    const k = Math.min(3, Math.floor(prog * 4)), s = Math.min(1, prog * 4 - k);
+    const stepE = s < .6 ? 0 : (s - .6) / .4, se = stepE * stepE * (3 - 2 * stepE);
+    const done = k + se;                                                          // 0 → 4 improvements
+    const pos = back ? 1 - back : done / 4;
+    const xr = .8 + pos * RAMP_U;
+    LN.wheel.position.set(xr, WR + .05, 0); LN.wheel.rotation.z = -xr / WR;
+    LN.wedges.forEach((w, j) => { w.visible = !back && done >= j + 1 - 1e-6; });
+    const wip = back ? 8 : Math.max(2, Math.round(8 - 1.5 * done));
+    LN.wip.forEach(pile => pile.forEach((c, n) => { c.visible = n < wip; }));
+    LN.flow += dt * (.5 + .4 * done);
+    LN.items.forEach((b, j) => { b.position.set(-5.2 + ((j / 16 * 10.4 + LN.flow) % 10.4), .6, .55); });
+    LN.andon.forEach((lights, st) => {
+      const state = st === 2 ? (wip >= 6 ? 2 : wip >= 4 ? 1 : 0) : (st === 1 && wip >= 7 ? 1 : 0);   // the kiln is the bottleneck
+      lights.forEach((l, j) => { l.material.opacity = j === state ? (j === 2 ? .6 + .4 * Math.sin(t * 8) : 1) : .18; });
+    });
+    if (k !== LN.lastK || wip !== LN.lastW) { LN.lastK = k; LN.lastW = wip; LN.board.userData.redraw(k, wip); }
+  }
+
+  /* =========================================================
+     INDUSTRIAL ENVIRONMENT
+     ========================================================= */
+  const EDGE = (hex, op) => new THREE.LineBasicMaterial({ color: hex, transparent: true, opacity: op });
+
+  // --- steel structure: solid lattice columns and girders, drawn as instanced steel members ---
+  const up3 = new THREE.Vector3(0, 1, 0);
+  function buildMembers(list, mat, sides = 8) {                     // list of [ax,ay,az, bx,by,bz, radius]
+    const mesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(1, 1, 1, sides, 1), mat, list.length);
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), a = new THREE.Vector3(), b = new THREE.Vector3(), d = new THREE.Vector3(), s = new THREE.Vector3(), mid = new THREE.Vector3();
+    list.forEach(([ax, ay, az, bx, by, bz, r], i) => {
+      a.set(ax, ay, az); b.set(bx, by, bz); d.subVectors(b, a); const len = d.length();
+      q.setFromUnitVectors(up3, d.normalize()); mid.addVectors(a, b).multiplyScalar(.5); s.set(r, len, r);
+      m4.compose(mid, q, s); mesh.setMatrixAt(i, m4);
+    });
+    return mesh;
+  }
+  const steelMat = STD(0x8e9aab, { metalness: .55, roughness: .42 });
+  const safetyMat = STD(0xf2c200, { metalness: .15, roughness: .5 });
+  const members = [], rails = [];
+  const sp = (a, b, r = .03, list = members) => list.push([a.x, a.y, a.z, b.x, b.y, b.z, r]);
+  function column(cx, cz, half, y0, y1, ang, step = 1.6) {
+    const u = V2(Math.cos(ang), Math.sin(ang)), v = V2(-Math.sin(ang), Math.cos(ang));
+    const corner = (k, y) => { const su = k === 0 || k === 3 ? 1 : -1, sv = k < 2 ? 1 : -1;
+      return new THREE.Vector3(cx + (u.x * su + v.x * sv) * half, y, cz + (u.y * su + v.y * sv) * half); };
+    for (let k = 0; k < 4; k++) sp(corner(k, y0), corner(k, y1), .075);                 // chord angles
+    let n = 0;
+    for (let y = y0; y - step >= y1; y -= step, n++) for (let k = 0; k < 4; k++) {
+      sp(corner(k, y), corner((k + 1) % 4, y), .032);                                  // batten
+      n % 2 ? sp(corner(k, y), corner((k + 1) % 4, y - step)) : sp(corner((k + 1) % 4, y), corner(k, y - step)); // lacing
+    }
+  }
+  function V2(x, y) { return { x, y }; }
+  const COLN = 6, CR = 17;
+  const colPos = Array.from({ length: COLN }, (_, c) => { const a = c / COLN * Math.PI * 2 + .3; return [Math.cos(a) * CR, Math.sin(a) * CR, a]; });
+  colPos.forEach(([x, z, a]) => column(x, z, .38, 10, FLOOR_BOT, a));
+  const lerp = (p, q, s) => p + (q - p) * s;
+  for (let y = 8; y > FLOOR_BOT; y -= 12) colPos.forEach(([x, z], c) => {               // Warren-truss ring girders
+    const [x2, z2] = colPos[(c + 1) % COLN];
+    const top = y, bot = y - .7, P3 = (t, yy) => new THREE.Vector3(lerp(x, x2, t), yy, lerp(z, z2, t));
+    sp(P3(0, top), P3(1, top), .07); sp(P3(0, bot), P3(1, bot), .07);
+    for (let t = 0; t < 1; t += .1) { sp(P3(t, top), P3(t + .05, bot), .03); sp(P3(t + .05, bot), P3(t + .1, top), .03); }
+  });
+  // column base plates on the lower slab
+  colPos.forEach(([x, z, a]) => { const bp = new THREE.Mesh(new THREE.BoxGeometry(1.3, .12, 1.3), steelMat); bp.position.set(x, FLOOR_BOT + .06, z); bp.rotation.y = -a; scene.add(bp); });
+
+  // --- concrete slabs with painted walkways and a guarded opening ---
+  function concreteTexture() {
+    const c = document.createElement("canvas"); c.width = c.height = 512;
+    const g = c.getContext("2d");
+    g.fillStyle = "#a3a8ae"; g.fillRect(0, 0, 512, 512);
+    const img = g.getImageData(0, 0, 512, 512), d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const n = (Math.random() - .5) * 18; d[i] += n; d[i + 1] += n; d[i + 2] += n + 1; }
+    g.putImageData(img, 0, 0);
+    for (let k = 0; k < 22; k++) {
+      const x = Math.random() * 512, y = Math.random() * 512, r = 20 + Math.random() * 80;
+      const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, "rgba(95,100,108,.09)"); gr.addColorStop(1, "rgba(95,100,108,0)");
+      g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r);
+    }
+    g.strokeStyle = "rgba(80,86,94,.4)"; g.lineWidth = 2; g.strokeRect(1, 1, 510, 510);          // saw-cut joints
+    const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; t.repeat.set(9, 9);
+    return t;
+  }
+  const slabMat = STD(0x8d939a, { map: concreteTexture(), roughness: .92, side: THREE.DoubleSide });
+  const topSlab = new THREE.Mesh(new THREE.RingGeometry(9.8, 32, 120, 1), slabMat);
+  topSlab.rotation.x = -Math.PI / 2; topSlab.position.y = FLOOR_TOP; topSlab.userData.noCast = true; scene.add(topSlab);
+  const slabEdge = new THREE.Mesh(new THREE.CylinderGeometry(9.8, 9.8, .45, 120, 1, true), STD(0x6e737a, { roughness: .9, side: THREE.DoubleSide }));
+  slabEdge.position.y = FLOOR_TOP - .22; slabEdge.userData.noCast = true; scene.add(slabEdge);
+  const botSlab = new THREE.Mesh(new THREE.CircleGeometry(32, 120), slabMat);
+  botSlab.rotation.x = -Math.PI / 2; botSlab.position.y = FLOOR_BOT; botSlab.userData.noCast = true; scene.add(botSlab);
+  const lineMat = new THREE.MeshBasicMaterial({ color: 0xf2c200, side: THREE.DoubleSide });
+  [FLOOR_TOP, FLOOR_BOT].forEach(y => [[12.2, 12.36], [14.2, 14.36]].forEach(([r0, r1]) => {  // painted walkway lanes
+    const lane = new THREE.Mesh(new THREE.RingGeometry(r0, r1, 140), lineMat); lane.rotation.x = -Math.PI / 2; lane.position.y = y + .012; scene.add(lane);
+  }));
+  const darkStripe = new THREE.MeshBasicMaterial({ color: 0x2d3138, side: THREE.DoubleSide });
+  for (let k = 0; k < 72; k++) {                                                            // hazard banding at the opening edge
+    const seg = new THREE.Mesh(new THREE.RingGeometry(9.8, 10.4, 1, 1, k / 72 * Math.PI * 2, Math.PI * 2 / 72), k % 2 ? darkStripe : lineMat);
+    seg.rotation.x = -Math.PI / 2; seg.position.y = FLOOR_TOP + .012; scene.add(seg);
+  }
+  [.55, 1.08].forEach(h => { const rail = new THREE.Mesh(new THREE.TorusGeometry(10.05, .04, 6, 160), safetyMat); rail.rotation.x = Math.PI / 2; rail.position.y = FLOOR_TOP + h; scene.add(rail); });
+  for (let k = 0; k < 40; k++) { const a = k / 40 * Math.PI * 2; sp(new THREE.Vector3(Math.cos(a) * 10.05, FLOOR_TOP, Math.sin(a) * 10.05), new THREE.Vector3(Math.cos(a) * 10.05, FLOOR_TOP + 1.1, Math.sin(a) * 10.05), .035, rails); }
+
+  // --- cement silos outside the frame, like the ones at Akij ---
+  const siloMat = STD(0x8f969e, { roughness: .85, flatShading: true });
+  [[4.25, 25.5], [4.8, 27.5], [5.35, 25.5]].forEach(([a, r]) => {
+    const g = new THREE.Group(); g.position.set(Math.cos(a) * r, 0, Math.sin(a) * r); scene.add(g);
+    const H = 15 - FLOOR_BOT, body = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, H, 36, 1, true), siloMat);
+    body.position.y = FLOOR_BOT + H / 2; g.add(body);
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(3.35, 1.3, 36), siloMat); roof.position.y = 15.65; g.add(roof);
+    for (let y = FLOOR_BOT + 8; y < 15; y += 12) { const ring = new THREE.Mesh(new THREE.TorusGeometry(3.45, .05, 6, 80), safetyMat); ring.rotation.x = Math.PI / 2; ring.position.y = y; g.add(ring); }
+    const cage = new THREE.Mesh(new THREE.BoxGeometry(.5, H, .5), STD(0x9aa5b1, { transparent: true, opacity: .5 })); cage.position.set(0, FLOOR_BOT + H / 2, 3.35); g.add(cage);
+    g.lookAt(0, 0, 0);
+  });
+
+  // --- colour-coded ring headers on the pipe rack (water, compressed air, gas) ---
+  [[15.2, 0x2f6db3], [15.55, 0x2f9e5b], [15.9, 0xd9a400]].forEach(([r, c], k) => {
+    for (let y = 6.7; y > FLOOR_BOT + 2; y -= 24) {
+      const pipe = new THREE.Mesh(new THREE.TorusGeometry(r, .12, 10, 180), STD(c, { metalness: .3, roughness: .4 }));
+      pipe.rotation.x = Math.PI / 2; pipe.position.y = y - k * .06; scene.add(pipe);
+    }
+  });
+
+  scene.add(buildMembers(members, steelMat));
+  scene.add(buildMembers(rails, safetyMat, 6));
+
+  /* =========================================================
+     INDUSTRIAL ENGINEERING LAYER: material flow, storage and KPIs
+     ========================================================= */
+  const IE = { agvs: [] };
+  const palletMat = STD(0xb08a5a, { roughness: .9 }), boxMat = STD(0xc49a6c, { roughness: .85 });
+  const wrapMat = STD(0xdfe8f2, { roughness: .25, transparent: true, opacity: .85 });
+  const rackUpMat = STD(0x2f5fa8, { roughness: .5, metalness: .3 }), rackBeamMat = STD(0xe26a00, { roughness: .5, metalness: .2 });
+
+  // AGVs on a taped vehicle lane, kept apart from the painted pedestrian walkway
+  const chevGeo = new THREE.BufferGeometry();
+  chevGeo.setAttribute("position", new THREE.Float32BufferAttribute([-.3, 0, -.15, 0, 0, .02, 0, 0, .22, 0, 0, .02, .3, 0, -.15, 0, 0, .22], 3));
+  const guideMat = new THREE.MeshBasicMaterial({ color: 0x1c64d8, side: THREE.DoubleSide });
+  function buildAGV() {
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(new THREE.BoxGeometry(1.0, .28, 1.5), STD(0x3a4452, { roughness: .5, metalness: .3 })); body.position.y = .2; g.add(body);
+    [-.76, .76].forEach(z => { const b = new THREE.Mesh(new THREE.BoxGeometry(1.02, .1, .04), safetyMat); b.position.set(0, .2, z); g.add(b); });
+    const lidar = new THREE.Mesh(new THREE.CylinderGeometry(.08, .08, .08, 12), STD(0x1b1f26)); lidar.position.set(0, .38, .62); g.add(lidar);
+    const beacon = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, .1, 10), new THREE.MeshBasicMaterial({ color: 0xffb020 })); beacon.position.set(.38, .4, -.6); g.add(beacon);
+    const pallet = new THREE.Mesh(new THREE.BoxGeometry(1.0, .12, 1.2), palletMat); pallet.position.y = .4; g.add(pallet);
+    const load = new THREE.Mesh(new THREE.BoxGeometry(.9, .6, 1.05), boxMat); load.position.y = .76; g.add(load);
+    load.add(new THREE.LineSegments(new THREE.EdgesGeometry(load.geometry), new THREE.LineBasicMaterial({ color: 0x7a5a38, transparent: true, opacity: .5 })));
+    g.userData.beacon = beacon;
+    return g;
+  }
+  function agvLoop(y, r, count, speed) {
+    const tape = new THREE.Mesh(new THREE.RingGeometry(r - .04, r + .04, 180), guideMat); tape.rotation.x = -Math.PI / 2; tape.position.y = y + .014; scene.add(tape);
+    for (let k = 0; k < 24; k++) {                                             // flow-direction chevrons
+      const a = k / 24 * Math.PI * 2, c = new THREE.Mesh(chevGeo, guideMat);
+      c.position.set(Math.cos(a) * (r - .6), y + .015, Math.sin(a) * (r - .6)); c.rotation.y = -a; scene.add(c);
+    }
+    for (let i = 0; i < count; i++) { const g = buildAGV(); scene.add(g); IE.agvs.push({ g, y, r, a: i / count * Math.PI * 2 + .7, speed }); }
+  }
+  agvLoop(FLOOR_TOP, 16.05, 2, .9);
+  agvLoop(FLOOR_BOT, 9.2, 1, .7);
+
+  // selective pallet racking: blue uprights, orange beams, part-filled bays
+  function palletRack(angle, radius, y, bays = 3, levels = 3) {
+    const g = new THREE.Group(); g.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius); g.rotation.y = -angle - Math.PI / 2; scene.add(g);
+    const bw = 2.7, dp = 1.1, lh = 1.55, H = levels * lh + .4, W = bays * bw, ups = [], beams = [];
+    for (let i = 0; i <= bays; i++) {
+      const x = -W / 2 + i * bw;
+      [-dp / 2, dp / 2].forEach(z => ups.push([x, 0, z, x, H, z, .05]));
+      for (let yy = .2; yy < H - .6; yy += .9) ups.push([x, yy, -dp / 2, x, yy + .8, dp / 2, .02]);   // frame bracing
+    }
+    for (let l = 0; l < levels; l++) [-dp / 2, dp / 2].forEach(z => beams.push([-W / 2, .15 + l * lh, z, W / 2, .15 + l * lh, z, .045]));
+    g.add(buildMembers(ups, rackUpMat, 6)); g.add(buildMembers(beams, rackBeamMat, 4));
+    for (let l = 0; l < levels; l++) for (let b = 0; b < bays; b++) for (let s = 0; s < 2; s++) {
+      if (Math.random() < .2) continue;
+      const x = -W / 2 + b * bw + bw * (s ? .73 : .27), yy = .2 + l * lh, h = .7 + Math.random() * .45;
+      const pal = new THREE.Mesh(new THREE.BoxGeometry(1.05, .12, 1.0), palletMat); pal.position.set(x, yy + .06, 0); g.add(pal);
+      const ld = new THREE.Mesh(new THREE.BoxGeometry(.98, h, .95), Math.random() < .55 ? boxMat : wrapMat); ld.position.set(x, yy + .12 + h / 2, 0); g.add(ld);
+    }
+  }
+  palletRack(5.0, 19.8, FLOOR_TOP);
+  palletRack(3.95, 19.8, FLOOR_TOP);
+
+  // line KPI board hung from the girder
+  const kpiC = document.createElement("canvas"); kpiC.width = 1024; kpiC.height = 384;
+  const kpiTex = new THREE.CanvasTexture(kpiC); kpiTex.anisotropy = 8;
+  const KPI = { out: 296, cycle: -1 };
+  function drawKPI(t) {
+    const cyc = Math.floor(t / 52);
+    if (cyc !== KPI.cycle) { if (KPI.cycle >= 0) KPI.out = KPI.out >= 360 ? 280 : KPI.out + 1; KPI.cycle = cyc; }
+    const g = kpiC.getContext("2d");
+    g.fillStyle = "#0b0f14"; g.fillRect(0, 0, 1024, 384);
+    g.fillStyle = "#1a222d"; g.fillRect(0, 0, 1024, 64);
+    g.fillStyle = "#9fb0c8"; g.font = "600 30px 'JetBrains Mono', monospace"; g.fillText("LINE 1 · PACKING · SHIFT A", 28, 43);
+    g.textAlign = "right"; g.fillStyle = "#5c6b80"; g.font = "500 22px 'JetBrains Mono', monospace"; g.fillText("demo data", 996, 42); g.textAlign = "left";
+    [["OEE", "84.2", "%", "#3ddc97"], ["TAKT", "52", "s", "#ffd84d"], ["CYCLE", "49", "s", "#3ddc97"], ["OUTPUT", String(KPI.out), "/360", "#5aa9ff"]].forEach(([k, v, u, c], i) => {
+      const x = 28 + i * 250;
+      g.fillStyle = "#5c6b80"; g.font = "600 24px 'JetBrains Mono', monospace"; g.fillText(k, x, 120);
+      g.fillStyle = c; g.font = "700 80px 'JetBrains Mono', monospace"; g.fillText(v, x, 220);
+      const w = g.measureText(v).width; g.font = "500 26px 'JetBrains Mono', monospace"; g.fillText(u, x + w + 6, 220);
+    });
+    const p = (t % 52) / 52;
+    g.fillStyle = "#1a222d"; g.fillRect(28, 280, 968, 26);
+    g.fillStyle = p > .94 ? "#ff5a5a" : "#ffd84d"; g.fillRect(28, 280, 968 * p, 26);
+    g.fillStyle = "#5c6b80"; g.font = "500 20px 'JetBrains Mono', monospace"; g.fillText("TAKT TIMER", 28, 340);
+    kpiTex.needsUpdate = true;
+  }
+  drawKPI(0);
+  const kpi = new THREE.Group(); scene.add(kpi);
+  const ka = 5.25, kr = 15.6; kpi.position.set(Math.cos(ka) * kr, FLOOR_TOP + 4.2, Math.sin(ka) * kr); kpi.lookAt(0, FLOOR_TOP + 4.2, 0);
+  kpi.add(new THREE.Mesh(new THREE.BoxGeometry(4.2, 1.7, .12), STD(0x1b1f26, { roughness: .4 })));
+  const kpiScreen = new THREE.Mesh(new THREE.PlaneGeometry(4.0, 1.5), new THREE.MeshBasicMaterial({ map: kpiTex })); kpiScreen.position.z = .065; kpi.add(kpiScreen);
+  kpi.add(buildMembers([[-1.8, .85, 0, -1.8, 3.6, 0, .015], [1.8, .85, 0, 1.8, 3.6, 0, .015]], steelMat, 4));
+
+  // AS/RS down the central shaft: two rack faces, a stacker crane storing and retrieving totes
+  const ASR = { top: FLOOR_TOP - .3, bot: yBot + .5 };
+  const asrs = new THREE.Group(); asrs.rotation.y = .5; scene.add(asrs);
+  (() => {
+    const bays = 4, bw = .9, lh = .7, dp = .8, aisle = .95, W = bays * bw, H = ASR.top - ASR.bot, levels = Math.floor((H - .6) / lh);
+    const zc = [-(aisle / 2 + dp / 2), aisle / 2 + dp / 2], up = [], bm = [];
+    zc.forEach(zcen => [zcen - dp / 2, zcen + dp / 2].forEach(z => {
+      for (let i = 0; i <= bays; i++) { const x = -W / 2 + i * bw; up.push([x, ASR.bot, z, x, ASR.top, z, .035]); }
+      for (let l = 0; l <= levels; l++) { const y = ASR.bot + .3 + l * lh; bm.push([-W / 2, y, z, W / 2, y, z, .022]); }
+    }));
+    bm.push([-W / 2 - .2, ASR.bot + .1, 0, W / 2 + .2, ASR.bot + .1, 0, .04], [-W / 2 - .2, ASR.top - .1, 0, W / 2 + .2, ASR.top - .1, 0, .04]);
+    asrs.add(buildMembers(up, steelMat, 6)); asrs.add(buildMembers(bm, STD(0x7d8b9c, { metalness: .5, roughness: .45 }), 4));
+    const plat = new THREE.Mesh(new THREE.BoxGeometry(W + .6, .2, 2 * dp + aisle + .6), steelMat); plat.position.y = ASR.bot - .1; asrs.add(plat);
+    const slots = [];
+    zc.forEach((zcen, side) => { for (let l = 0; l < levels; l++) for (let b = 0; b < bays; b++)
+      slots.push({ x: -W / 2 + (b + .5) * bw, y: ASR.bot + .3 + l * lh + .02, z: zcen, side, full: Math.random() < .62 }); });
+    const totes = new THREE.InstancedMesh(new THREE.BoxGeometry(.72, .42, .62), STD(0xffffff, { roughness: .6 }), slots.length);
+    const col = new THREE.Color(), m4 = new THREE.Matrix4(), palette = [0x5b7fae, 0x9aa5b2, 0x9aa5b2, 0xb99a74];
+    slots.forEach((s, i) => { s.color = palette[Math.floor(Math.random() * palette.length)]; totes.setColorAt(i, col.setHex(s.color)); });
+    ASR.setSlot = i => {
+      const s = slots[i], k = s.full ? 1 : 0;
+      m4.makeScale(k, k, k); m4.setPosition(s.x, s.y + .21, s.z); totes.setMatrixAt(i, m4);
+      totes.setColorAt(i, col.setHex(s.color)); totes.instanceMatrix.needsUpdate = true; totes.instanceColor.needsUpdate = true;
+    };
+    slots.forEach((s, i) => ASR.setSlot(i));
+    asrs.add(totes);
+    const crane = new THREE.Group(); asrs.add(crane);
+    const mast = new THREE.Mesh(new THREE.BoxGeometry(.16, H - .2, .16), safetyMat); mast.position.y = ASR.bot + H / 2; crane.add(mast);
+    const carriage = new THREE.Group(); crane.add(carriage);
+    carriage.add(new THREE.Mesh(new THREE.BoxGeometry(.8, .12, .7), STD(0x3a4452, { metalness: .3 })));
+    const ctote = new THREE.Mesh(new THREE.BoxGeometry(.72, .42, .62), STD(0x5b7fae, { roughness: .6 })); ctote.position.y = .27; ctote.visible = false; carriage.add(ctote);
+    Object.assign(ASR, { slots, crane, carriage, ctote, x: 0, y: ASR.bot + 2, target: null, dwell: 0, carrying: false, swapped: true, W });
+    // hang the tower from the slab edge
+    const hang = [];
+    [[1, 1], [1, -1], [-1, 1], [-1, -1]].forEach(([sx, sz]) => {
+      const p = new THREE.Vector3(sx * (W / 2 + .3), 0, sz * 1.6).applyAxisAngle(up3, .5), d = p.clone().normalize().multiplyScalar(9.85);
+      hang.push([p.x, ASR.top, p.z, d.x, FLOOR_TOP - .25, d.z, .06]);
+    });
+    scene.add(buildMembers(hang, steelMat));
+  })();
+
+  function updateIE(t, dt) {
+    IE.agvs.forEach(v => {
+      v.a += v.speed * dt / v.r;
+      v.g.position.set(Math.cos(v.a) * v.r, v.y, Math.sin(v.a) * v.r); v.g.rotation.y = -v.a;
+      v.g.userData.beacon.material.color.setHex(Math.sin(t * 6 + v.a * 10) > 0 ? 0xffb020 : 0x6b4e1a);
+    });
+    if (frameNo % 30 === 0) drawKPI(t);
+    const A = ASR;
+    if (A.target === null) {
+      const cand = []; A.slots.forEach((s, i) => { if (s.full !== A.carrying) cand.push(i); });
+      A.target = cand[Math.floor(Math.random() * cand.length)];
+    }
+    const s = A.slots[A.target];
+    if (A.dwell > 0) {                                                           // forks reach into the bay and back
+      A.dwell -= dt;
+      const pr = Math.min(1, 1 - A.dwell / .9), reach = Math.sin(pr * Math.PI) * .85;
+      A.ctote.position.z = (s.side ? 1 : -1) * reach;
+      if (pr > .5 && !A.swapped) {
+        A.swapped = true;
+        if (A.carrying) { s.full = true; s.color = A.ctoteColor; } else { s.full = false; A.ctoteColor = s.color; A.ctote.material.color.setHex(s.color); }
+        A.carrying = !A.carrying; A.ctote.visible = A.carrying; A.setSlot(A.target);
+      }
+      if (A.dwell <= 0) { A.ctote.position.z = 0; A.target = null; }
+    } else {
+      const dx = s.x - A.x, dy = s.y - A.y;
+      A.x += Math.sign(dx) * Math.min(Math.abs(dx), dt * .9);
+      A.y += Math.sign(dy) * Math.min(Math.abs(dy), dt * 2.6);
+      if (Math.abs(dx) < 1e-3 && Math.abs(dy) < 1e-3) { A.dwell = .9; A.swapped = false; if (A.carrying) A.ctote.visible = true; }
+    }
+    A.crane.position.x = A.x; A.carriage.position.y = A.y;
+  }
+
+
+  /* =========================================================
+     SKILLS IN THE SCENE: tags pinned to the work that uses them
+     ========================================================= */
+  const holders = {};
+  function holderFor(i) {
+    if (holders[i]) return holders[i];
+    const h = new THREE.Group(); h.position.copy(cards[i].position); h.quaternion.copy(cards[i].userData.base); scene.add(h);
+    return (holders[i] = h);
+  }
+  const skillTags = [];
+  function skillTag(parent, text, pos, color = "#1c64d8", size = .6) {
+    const s = textSprite(size, g => {
+      g.font = "600 46px 'JetBrains Mono', monospace";
+      const w = Math.min(500, g.measureText(text).width + 80), x = 256 - w / 2, y = 84, h = 88, r = 44;
+      g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+      g.fillStyle = "rgba(255,255,255,.95)"; g.fill(); g.lineWidth = 4; g.strokeStyle = color; g.stroke();
+      g.fillStyle = color; g.beginPath(); g.arc(x + 38, y + h / 2, 11, 0, Math.PI * 2); g.fill();
+      g.fillStyle = "#0e1a2b"; g.textBaseline = "middle"; g.fillText(text, x + 60, y + h / 2 + 2);
+    });
+    s.position.set(pos[0], pos[1], pos[2]); s.userData.y = pos[1]; s.userData.ph = Math.random() * 6;
+    parent.add(s); skillTags.push(s); return s;
+  }
+  const BLUE = "#1c64d8", PINK = "#d6336c", GREEN = "#1f9d55", ORANGE = "#e26a00", PURPLE = "#9b3fd1";
+  const projIdx = key => PROFILE.projects.findIndex(p => p[key]);
+
+  // ANSYS legend that fades in while the hero screw shows its stress contour
+  const feaLegend = textSprite(.62, g => {
+    const grd = g.createLinearGradient(40, 0, 472, 0);
+    ["#00007f", "#0000ff", "#00ffff", "#ffff00", "#ff0000", "#7f0000"].forEach((c, i) => grd.addColorStop(i / 5, c));
+    g.fillStyle = "rgba(255,255,255,.94)"; g.fillRect(20, 40, 472, 176);
+    g.fillStyle = "#0e1a2b"; g.font = "600 30px 'JetBrains Mono', monospace"; g.fillText("ANSYS · von Mises", 40, 86);
+    g.fillStyle = grd; g.fillRect(40, 108, 432, 34);
+    g.fillStyle = "#5a6a82"; g.font = "500 22px 'JetBrains Mono', monospace"; g.fillText("min", 40, 170); g.textAlign = "right"; g.fillText("max", 472, 170);
+    g.textAlign = "left"; g.font = "400 18px 'JetBrains Mono', monospace"; g.fillText("illustrative stress field", 40, 200);
+  });
+  feaLegend.position.set(-1.8, -1.3, .8); feaLegend.material.opacity = 0; scene.add(feaLegend);
+
+  /* ---------- Bambu 3D printer printing the real screw (thesis card) ---------- */
+  const PRN = {};
+  (() => {
+    const idx = projIdx("printer"); if (idx < 0) return;
+    const root = new THREE.Group(); root.position.set(1.75, -1.95, 1.6); root.rotation.y = -.45; root.scale.setScalar(.95); holderFor(idx).add(root);
+    const W = 2.2, H = 2.6, Dp = 2.2, frame = [];
+    [-W / 2, W / 2].forEach(x => [-Dp / 2, Dp / 2].forEach(z => frame.push([x, 0, z, x, H, z, .045])));
+    [0, H].forEach(y => frame.push([-W / 2, y, -Dp / 2, W / 2, y, -Dp / 2, .045], [-W / 2, y, Dp / 2, W / 2, y, Dp / 2, .045], [-W / 2, y, -Dp / 2, -W / 2, y, Dp / 2, .045], [W / 2, y, -Dp / 2, W / 2, y, Dp / 2, .045]));
+    const shell = STD(0x23272e, { roughness: .5, metalness: .35 });
+    root.add(buildMembers(frame, shell, 6));
+    const glassM = STD(0xb9c7d9, { transparent: true, opacity: .14, roughness: .1, side: THREE.DoubleSide, depthWrite: false });
+    [[0, H / 2, -Dp / 2, 0], [-W / 2, H / 2, 0, Math.PI / 2], [W / 2, H / 2, 0, Math.PI / 2]].forEach(([x, y, z, ry]) => {
+      const pane = new THREE.Mesh(new THREE.PlaneGeometry(W, H), glassM); pane.position.set(x, y, z); pane.rotation.y = ry; root.add(pane); });
+    const base = new THREE.Mesh(new THREE.BoxGeometry(W + .1, .25, Dp + .1), shell); base.position.y = .125; root.add(base);
+    const lid = new THREE.Mesh(new THREE.BoxGeometry(W + .1, .12, Dp + .1), shell); lid.position.y = H + .06; root.add(lid);
+    const bed = new THREE.Group(); root.add(bed);
+    bed.add(new THREE.Mesh(new THREE.BoxGeometry(1.7, .06, 1.7), STD(0x6f7a88, { metalness: .5, roughness: .35 })));
+    const NOZ_Y = 1.95;
+    const xRail = new THREE.Mesh(new THREE.BoxGeometry(W - .1, .07, .07), steelMat); root.add(xRail);
+    const head = new THREE.Group(); root.add(head);
+    const hb = new THREE.Mesh(new THREE.BoxGeometry(.34, .36, .32), STD(0xe8ebef, { roughness: .45 })); hb.position.y = .26; head.add(hb);
+    const band = new THREE.Mesh(new THREE.BoxGeometry(.345, .05, .325), STD(0x1f9d55)); band.position.y = .38; head.add(band);
+    const noz = new THREE.Mesh(new THREE.ConeGeometry(.04, .09, 10), STD(0xb89b5e, { metalness: .6 })); noz.rotation.x = Math.PI; noz.position.y = .045; head.add(noz);
+    const glow = new THREE.Mesh(new THREE.CircleGeometry(.35, 32), new THREE.MeshBasicMaterial({ color: 0xff8a2a, transparent: true, opacity: .4, depthWrite: false, side: THREE.DoubleSide }));
+    glow.rotation.x = -Math.PI / 2; root.add(glow);
+    const status = textSprite(.5, (g, pct = 0, layer = 0) => {
+      g.fillStyle = "rgba(20,26,34,.92)"; g.fillRect(16, 60, 480, 136);
+      g.fillStyle = "#3ddc97"; g.fillRect(16, 60, 480 * pct, 8);
+      g.fillStyle = "#e8ecf6"; g.font = "600 40px 'JetBrains Mono', monospace"; g.fillText(`PRINTING ${Math.round(pct * 100)}%`, 40, 125);
+      g.fillStyle = "#9fb0c8"; g.font = "500 27px 'JetBrains Mono', monospace"; g.fillText(`Layer ${layer} / 186 · 0.20 mm`, 40, 172);
+    });
+    status.position.set(0, H + .5, Dp / 2); root.add(status);
+    Object.assign(PRN, { root, bed, head, xRail, glow, status, NOZ_Y, lastPct: -1 });
+    REAL.onload.push((geo, mn, mx) => {
+      const k = 1.45 / (mx[2] - mn[2]);                                                  // printed upright on the bed
+      const clip = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0);
+      const pm = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0xf1ead8, roughness: .55, flatShading: true, side: THREE.DoubleSide, clippingPlanes: [clip] }));
+      pm.rotation.x = -Math.PI / 2; pm.scale.setScalar(k); pm.position.y = .03 + (mx[2] - mn[2]) / 2 * k; bed.add(pm);
+      Object.assign(PRN, { print: pm, clip, printH: (mx[2] - mn[2]) * k, printR: (mx[0] - mn[0]) / 2 * k, ready: true });
+      glow.scale.setScalar(PRN.printR / .35 * 1.05);
+    });
+  })();
+  const nozW = new THREE.Vector3();
+  function updatePrinter(t) {
+    if (!PRN.root) return;
+    const ph = (t % 16) / 16, printing = ph < .75;
+    const prog = printing ? ph / .75 : ph < .94 ? 1 : 1 - (ph - .94) / .06;
+    const H = PRN.printH || 1.45, R = PRN.printR || .3;
+    PRN.bed.position.y = PRN.NOZ_Y - .03 - prog * H;                                     // CoreXY: the bed drops one layer at a time
+    const hx = printing ? Math.sin(t * 7.3) * R * .9 : .75, hz = printing ? Math.sin(t * 4.1 + 1) * R * .9 : -.6;
+    PRN.head.position.set(hx, PRN.NOZ_Y, hz); PRN.xRail.position.set(0, PRN.NOZ_Y + .45, hz);
+    if (PRN.ready) { nozW.set(0, PRN.NOZ_Y, 0); PRN.root.localToWorld(nozW); PRN.clip.constant = nozW.y; PRN.print.visible = prog > .002; }
+    PRN.glow.position.set(0, PRN.NOZ_Y + .003, 0); PRN.glow.material.opacity = printing ? .3 + .15 * Math.sin(t * 20) : 0;
+    const pct = Math.min(1, prog);
+    if (Math.abs(pct - PRN.lastPct) > .01) { PRN.lastPct = pct; PRN.status.userData.redraw(pct, Math.round(pct * 186)); }
+  }
+
+  /* ---------- AutoCAD-style drafting animation on the machine shop card ---------- */
+  const layoutIdx = PROFILE.projects.findIndex(p => p.anim === "layout");
+  const LC = document.createElement("canvas"); LC.width = 1024; LC.height = 640;
+  const layoutTex = new THREE.CanvasTexture(LC); layoutTex.anisotropy = 8;
+  const rectP = (x, y, w, h) => [[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]];
+  const MACH = "#5ad1ff";
+  const LAY = [
+    { cmd: "PLINE", c: "#e8ecf6", w: 4, pts: [[480, 520], [80, 520], [80, 90], [944, 90], [944, 520], [600, 520]] },
+    { cmd: "LINE", c: "#e8ecf6", w: 2, pts: [[600, 520], [600, 440]] },
+    { cmd: "LINE", c: "#ffd84d", w: 2, dash: [14, 10], pts: [[90, 300], [934, 300]] },
+    { cmd: "LINE", c: "#ffd84d", w: 2, dash: [14, 10], pts: [[540, 100], [540, 510]] },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(110, 120, 150, 70), label: "LATHE 1" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(300, 120, 150, 70), label: "LATHE 2" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(580, 120, 140, 70), label: "SHAPER" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(760, 115, 150, 80), label: "MILLING" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(110, 360, 110, 80), label: "DRILL" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(260, 370, 120, 70), label: "GRINDER" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(410, 380, 100, 60), label: "SAW" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(580, 360, 170, 110), label: "CNC" },
+    { cmd: "RECTANG", c: MACH, w: 2.5, pts: rectP(790, 370, 120, 90), label: "WELDING" },
+    { cmd: "PLINE", c: "#ff6bd6", w: 3, pts: [[185, 190], [185, 300], [665, 300], [665, 360]], arrow: true },
+    { cmd: "DIMLINEAR", c: "#ff5a5a", w: 1.5, pts: [[80, 62], [944, 62]], text: "24 000" },
+    { cmd: "DIMLINEAR", c: "#ff5a5a", w: 1.5, pts: [[976, 90], [976, 520]], text: "13 000", vert: true }
+  ];
+  function drawPrim(g, e, amt) {
+    g.strokeStyle = e.c; g.lineWidth = e.w; g.setLineDash(e.dash || []);
+    let total = 0; for (let i = 1; i < e.pts.length; i++) total += Math.hypot(e.pts[i][0] - e.pts[i - 1][0], e.pts[i][1] - e.pts[i - 1][1]);
+    let left = total * amt, end = e.pts[0];
+    g.beginPath(); g.moveTo(end[0], end[1]);
+    for (let i = 1; i < e.pts.length && left > 0; i++) {
+      const [ax, ay] = e.pts[i - 1], [bx, by] = e.pts[i], len = Math.hypot(bx - ax, by - ay), s = Math.min(1, left / len);
+      end = [ax + (bx - ax) * s, ay + (by - ay) * s]; g.lineTo(end[0], end[1]); left -= len;
+    }
+    g.stroke(); g.setLineDash([]);
+    if (amt < 1) return end;
+    g.fillStyle = e.c; g.font = "500 16px 'JetBrains Mono', monospace"; g.textAlign = "center";
+    if (e.label) { g.fillStyle = "#7dff9a"; g.fillText(e.label, (e.pts[0][0] + e.pts[2][0]) / 2, (e.pts[0][1] + e.pts[2][1]) / 2 + 6); }
+    if (e.arrow) {
+      const [ax, ay] = e.pts[e.pts.length - 2], [bx, by] = e.pts[e.pts.length - 1], a = Math.atan2(by - ay, bx - ax);
+      g.beginPath(); g.moveTo(bx, by); g.lineTo(bx - 16 * Math.cos(a - .4), by - 16 * Math.sin(a - .4)); g.lineTo(bx - 16 * Math.cos(a + .4), by - 16 * Math.sin(a + .4)); g.closePath(); g.fill();
+    }
+    if (e.text) {
+      const [x0, y0] = e.pts[0], [x1, y1] = e.pts[1];
+      if (e.vert) { g.fillRect(x0 - 8, y0 - 1, 16, 2); g.fillRect(x1 - 8, y1 - 1, 16, 2); g.save(); g.translate(x0 + 20, (y0 + y1) / 2); g.rotate(-Math.PI / 2); g.fillText(e.text, 0, 0); g.restore(); }
+      else { g.fillRect(x0 - 1, y0 - 8, 2, 16); g.fillRect(x1 - 1, y1 - 8, 2, 16); g.fillText(e.text, (x0 + x1) / 2, y0 - 8); }
+    }
+    g.textAlign = "left";
+    return end;
+  }
+  function drawLayout(prog) {
+    const g = LC.getContext("2d");
+    g.fillStyle = "#1e2530"; g.fillRect(0, 0, 1024, 640);
+    g.strokeStyle = "rgba(255,255,255,.05)"; g.lineWidth = 1;
+    for (let x = 0; x <= 1024; x += 32) { g.beginPath(); g.moveTo(x, 36); g.lineTo(x, 596); g.stroke(); }
+    for (let y = 36; y <= 596; y += 32) { g.beginPath(); g.moveTo(0, y); g.lineTo(1024, y); g.stroke(); }
+    g.fillStyle = "#2b3441"; g.fillRect(0, 0, 1024, 36);
+    g.fillStyle = "#cfd8e3"; g.font = "500 18px 'JetBrains Mono', monospace"; g.fillText("MachineShop_Layout.dwg", 16, 24);
+    g.textAlign = "right"; g.fillText("04 — Machine Shop Process Layout", 1008, 24); g.textAlign = "left";
+    const n = LAY.length, f = prog * n, cur = Math.min(n - 1, Math.floor(f)), part = prog >= 1 ? 1 : f - cur;
+    let cursor = null;
+    for (let i = 0; i <= cur; i++) cursor = drawPrim(g, LAY[i], i < cur ? 1 : part);
+    g.fillStyle = "#151a22"; g.fillRect(0, 596, 1024, 44);
+    const e = LAY[cur], ask = e.cmd === "DIMLINEAR" ? "Specify dimension line location:" : e.cmd === "RECTANG" ? "Specify other corner point:" : "Specify next point:";
+    g.fillStyle = "#9fb0c8"; g.font = "500 18px 'JetBrains Mono', monospace";
+    g.fillText(prog >= 1 ? "Command: QSAVE   Layout saved." : `Command: ${e.cmd}   ${ask}`, 16, 624);
+    if (cursor && prog < 1) {
+      g.strokeStyle = "#ffffff"; g.lineWidth = 1; g.beginPath();
+      g.moveTo(cursor[0] - 40, cursor[1]); g.lineTo(cursor[0] + 40, cursor[1]); g.moveTo(cursor[0], cursor[1] - 40); g.lineTo(cursor[0], cursor[1] + 40); g.stroke();
+      g.strokeRect(cursor[0] - 5, cursor[1] - 5, 10, 10);
+    }
+    layoutTex.needsUpdate = true;
+  }
+  if (layoutIdx >= 0) { drawLayout(1); cards[layoutIdx].userData.u.uMap.value = layoutTex; }
+  let layoutFull = true;
+
+  /* ---------- Chokepoint control tower: a live dashboard on its card ----------
+     Figures come from the tool's own case data: TTS = days on hand ÷ supplier share, TTR from the register. */
+  const chokeIdx = PROFILE.projects.findIndex(p => p.anim === "chokepoint");
+  const CK = document.createElement("canvas"); CK.width = 1024; CK.height = 640;
+  const chokeTex = new THREE.CanvasTexture(CK); chokeTex.anisotropy = 8;
+  const NODES = [["S12 LNG · Ras Laffan", 6, 60], ["S1 Resin · Jubail", 25.7, 60], ["S10 Copper · Antofagasta", 37.5, 50],
+                 ["S7 Steel · Antwerp", 38.2, 45], ["S4 DRAM · Hsinchu", 38.5, 75], ["S2 Resin · Jamnagar", 60, 21]];
+  const MC = (() => {                                   // a fixed sample of shortage days, lean policy under a Hormuz closure
+    let a = 20260417; const r = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    return Array.from({ length: 1000 }, () => { if (r() < .42) return 0; let u = 0; while (!u) u = r(); const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); return Math.min(39, Math.max(1, Math.round(Math.exp(2.3 + .55 * z)))); });
+  })();
+  function drawChoke(prog) {
+    const g = CK.getContext("2d"), F = "'JetBrains Mono', monospace", D = "'Bricolage Grotesque', sans-serif";
+    g.fillStyle = "#eaeef0"; g.fillRect(0, 0, 1024, 640);
+    g.fillStyle = "#f9fafa"; g.fillRect(0, 0, 1024, 58); g.fillStyle = "#d2d9de"; g.fillRect(0, 58, 1024, 1);
+    g.font = `800 30px ${D}`; g.fillStyle = "#14212a"; g.fillText("CHOKE", 24, 40); const w = g.measureText("CHOKE").width; g.fillStyle = "#b4471c"; g.fillText("POINT", 24 + w, 40);
+    g.font = `500 15px ${F}`; g.fillStyle = "#76838c"; g.fillText("Supply risk control tower · fictional case, real routes", 220, 37);
+    [["$91.4M", "material spend / yr"], ["51%", "through chokepoints"], ["5", "nodes with TTR > TTS"], [`${Math.round(prog * 1000)}`, "Monte Carlo runs"]].forEach(([v, l], i) => {
+      const x = 24 + i * 248; g.fillStyle = "#f9fafa"; g.fillRect(x, 74, 232, 78); g.strokeStyle = "#d2d9de"; g.strokeRect(x + .5, 74.5, 231, 77);
+      g.fillStyle = i === 2 ? "#d03b3b" : "#14212a"; g.font = `700 36px ${D}`; g.fillText(v, x + 14, 118); g.fillStyle = "#4a5863"; g.font = `500 14px ${F}`; g.fillText(l, x + 14, 140);
+    });
+    // TTS vs TTR dumbbells
+    g.fillStyle = "#f9fafa"; g.fillRect(24, 168, 600, 448); g.strokeStyle = "#d2d9de"; g.strokeRect(24.5, 168.5, 599, 447);
+    g.fillStyle = "#14212a"; g.font = `700 17px ${F}`; g.fillText("TIME TO SURVIVE vs TIME TO RECOVER", 40, 196);
+    const x0 = 262, x1 = 600, X = d => x0 + d / 80 * (x1 - x0);
+    g.font = `500 12px ${F}`; g.fillStyle = "#76838c";
+    [0, 20, 40, 60, 80].forEach(d => { g.fillRect(X(d), 214, 1, 360); g.fillText(String(d), X(d) - 6, 594); });
+    g.fillText("days", x1 - 30, 610);
+    NODES.forEach(([name, tts, ttr], k) => {
+      const y = 246 + k * 56, p = Math.min(1, Math.max(0, prog * 1.6 - k * .1)), e = 1 - Math.pow(1 - p, 3);
+      const a = X(tts * e), b = X(ttr * e), gap = ttr > tts;
+      g.fillStyle = "#14212a"; g.font = `500 13px ${F}`; g.fillText(name, 38, y + 5);
+      g.strokeStyle = gap ? "#d03b3b" : "#b9c2c8"; g.lineWidth = gap ? 5 : 3; g.beginPath(); g.moveTo(a, y); g.lineTo(b, y); g.stroke();
+      g.fillStyle = "#2a78d6"; g.beginPath(); g.arc(a, y, 8, 0, 7); g.fill();
+      g.fillStyle = "#eb6834"; g.beginPath(); g.arc(b, y, 8, 0, 7); g.fill();
+      if (gap && p >= 1) { g.fillStyle = "#d03b3b"; g.font = `600 12px ${F}`; g.textAlign = "center"; g.fillText(`gap ${Math.round(ttr - tts)} d`, (a + b) / 2, y - 13); g.textAlign = "left"; }
+    });
+    // Monte Carlo histogram filling run by run
+    g.fillStyle = "#f9fafa"; g.fillRect(640, 168, 360, 448); g.strokeStyle = "#d2d9de"; g.strokeRect(640.5, 168.5, 359, 447);
+    g.fillStyle = "#14212a"; g.font = `700 17px ${F}`; g.fillText("MONTE CARLO · 180 DAYS", 656, 196);
+    g.fillStyle = "#76838c"; g.font = `500 13px ${F}`; g.fillText("Lean policy · Hormuz closure · days short", 656, 218);
+    const n = Math.round(prog * 1000), bins = new Array(10).fill(0);
+    for (let i = 0; i < n; i++) bins[Math.min(9, Math.floor(MC[i] / 4))]++;
+    const maxB = Math.max(60, ...bins), bx = 664, bw = 31, by = 560;
+    bins.forEach((c, i) => { const h = c / maxB * 300; g.fillStyle = i ? "#eb6834" : "#2a78d6"; g.fillRect(bx + i * bw, by - h, bw - 5, h); });
+    g.fillStyle = "#76838c"; g.font = `500 12px ${F}`; g.fillText("0", bx + 8, by + 18); g.fillText("20", bx + 5 * bw + 4, by + 18); g.fillText("40 d", bx + 9 * bw - 4, by + 18);
+    const out = n ? MC.slice(0, n).filter(v => v > 0).length / n : 0;
+    g.fillStyle = "#d03b3b"; g.font = `700 18px ${F}`; g.fillText(`P(stock-out) ${(out * 100).toFixed(0)}%`, 656, 600);
+    chokeTex.needsUpdate = true;
+  }
+  if (chokeIdx >= 0) { drawChoke(1); cards[chokeIdx].userData.u.uMap.value = chokeTex; }
+  let chokeFull = true;
+
+  /* =========================================================
+     DATA ANALYSIS CONTROL ROOM (bottom floor): live charts on
+     simulated data, redrawn only while the camera is nearby
+     ========================================================= */
+  const DATA_C = new THREE.Vector3(-13.5, FLOOR_BOT, -3.5);
+  const dataRoom = new THREE.Group(); dataRoom.position.copy(DATA_C); dataRoom.lookAt(0, FLOOR_BOT, 0); scene.add(dataRoom);
+  const dFloor = new THREE.Mesh(new THREE.BoxGeometry(9, .15, 5.5), STD(0xe4e8ee, { roughness: .7 })); dFloor.position.y = .075; dataRoom.add(dFloor);
+  const wallP = new THREE.Mesh(new THREE.BoxGeometry(8.4, 5.6, .2), STD(0xd9dee5, { roughness: .8 })); wallP.position.set(0, 2.9, -2.1); dataRoom.add(wallP);
+  const desk = new THREE.Mesh(new THREE.BoxGeometry(6.8, .1, 1.3), STD(0x3a4452, { roughness: .5 })); desk.position.set(0, 1.05, .9); dataRoom.add(desk);
+  const deskFront = new THREE.Mesh(new THREE.BoxGeometry(6.8, .95, .08), STD(0x4a5566, { roughness: .6 })); deskFront.position.set(0, .55, 1.52); dataRoom.add(deskFront);
+  function screen(w, h, cw, ch) {
+    const c = document.createElement("canvas"); c.width = cw; c.height = ch;
+    const tex = new THREE.CanvasTexture(c); tex.anisotropy = 8;
+    const grp = new THREE.Group();
+    grp.add(new THREE.Mesh(new THREE.BoxGeometry(w + .12, h + .12, .08), STD(0x1b1f26, { roughness: .4 })));
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex })); scr.position.z = .045; grp.add(scr);
+    return { grp, g: c.getContext("2d"), tex, w: cw, h: ch };
+  }
+  const SCR = { spc: screen(1.9, 1.19, 768, 480), cap: screen(1.9, 1.19, 768, 480), reg: screen(1.9, 1.19, 768, 480), par: screen(5.6, 2.3, 1400, 575) };
+  [[SCR.spc, -2.15, .4], [SCR.cap, 0, 0], [SCR.reg, 2.15, -.4]].forEach(([s, x, ry]) => {
+    s.grp.position.set(x, 1.85, .75); s.grp.rotation.set(-.08, ry, 0); dataRoom.add(s.grp);
+    const st = new THREE.Mesh(new THREE.BoxGeometry(.08, .55, .08), steelMat); st.position.set(x, 1.3, .72); dataRoom.add(st);
+  });
+  SCR.par.grp.position.set(0, 4.05, -1.95); dataRoom.add(SCR.par.grp);
+
+  const D = { spc: [], hist: new Array(20).fill(0), n: 0, sum: 0, sq: 0, shift: 0, reg: [], regHold: 0, parCycle: -1, par: [] };
+  const randn = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  function addSample() {
+    if (Math.random() < .02) D.shift = D.shift ? 0 : (Math.random() < .5 ? 6 : -6);          // an assignable cause comes and goes
+    const v = 50 + D.shift * (.5 + Math.random() * .5) + randn() * 2;
+    D.spc.push(v); if (D.spc.length > 40) D.spc.shift();
+    if (D.n > 400) { D.hist.fill(0); D.n = D.sum = D.sq = 0; }
+    const b = Math.floor(v - 40); if (b >= 0 && b < 20) D.hist[b]++;
+    D.n++; D.sum += v; D.sq += v * v;
+  }
+  function regStep() {
+    if (D.reg.length >= 24) { if (++D.regHold > 10) { D.reg = []; D.regHold = 0; } return; }
+    const x = 10 + Math.random() * 30; D.reg.push([x, -.12 - .017 * (x - 10) + randn() * .035]);
+  }
+  for (let i = 0; i < 60; i++) addSample();
+  for (let i = 0; i < 12; i++) regStep();
+  function chartBase(s, title, sub) {
+    const g = s.g; g.fillStyle = "#0f1a2a"; g.fillRect(0, 0, s.w, s.h);
+    g.fillStyle = "#cfe0ff"; g.font = "600 26px 'JetBrains Mono', monospace"; g.fillText(title, 26, 42);
+    g.fillStyle = "#6f86a8"; g.font = "500 17px 'JetBrains Mono', monospace"; g.fillText(sub, 26, 70);
+    return g;
+  }
+  function gridLines(g, x0, y0, x1, y1) {
+    g.strokeStyle = "#22324a"; g.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) { const y = y0 + (y1 - y0) * i / 4; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); }
+    g.strokeStyle = "#51688a"; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0, y1); g.lineTo(x1, y1); g.stroke();
+  }
+  const mono = px => `500 ${px}px 'JetBrains Mono', monospace`;
+  function drawSPC() {
+    const s = SCR.spc, g = chartBase(s, "X̄ CONTROL CHART", "Minitab · subgroup means · simulated data");
+    const x0 = 70, x1 = 740, y0 = 100, y1 = 430, Y = v => y1 - (v - 40) / 20 * (y1 - y0), X = i => x0 + 12 + i * (x1 - x0 - 24) / 39;
+    gridLines(g, x0, y0, x1, y1);
+    [[56, "#ff5a5a", "UCL 56.0"], [50, "#3ddc97", "CL 50.0"], [44, "#ff5a5a", "LCL 44.0"]].forEach(([v, c, t]) => {
+      g.strokeStyle = c; g.lineWidth = 2; g.setLineDash(v === 50 ? [] : [10, 8]); g.beginPath(); g.moveTo(x0, Y(v)); g.lineTo(x1, Y(v)); g.stroke(); g.setLineDash([]);
+      g.fillStyle = c; g.font = mono(16); g.fillText(t, x1 - 92, Y(v) - 8);
+    });
+    g.strokeStyle = "#5aa9ff"; g.lineWidth = 2.5; g.beginPath(); D.spc.forEach((v, i) => i ? g.lineTo(X(i), Y(v)) : g.moveTo(X(i), Y(v))); g.stroke();
+    let ooc = 0;
+    D.spc.forEach((v, i) => {
+      const out = v > 56 || v < 44; if (out) ooc++;
+      g.fillStyle = out ? "#ff5a5a" : "#5aa9ff"; g.beginPath(); g.arc(X(i), Y(v), out ? 7 : 4.5, 0, 7); g.fill();
+      if (out) { g.strokeStyle = "#ff5a5a"; g.lineWidth = 2; g.beginPath(); g.arc(X(i), Y(v), 13, 0, 7); g.stroke(); }
+    });
+    g.fillStyle = ooc ? "#ff5a5a" : "#3ddc97"; g.font = "600 18px 'JetBrains Mono', monospace";
+    g.fillText(ooc ? `${ooc} point${ooc > 1 ? "s" : ""} outside limits → investigate the cause` : "Process in statistical control", 26, 464);
+    s.tex.needsUpdate = true;
+  }
+  function drawCap() {
+    const s = SCR.cap, g = chartBase(s, "PROCESS CAPABILITY", "Minitab · histogram + normal fit · simulated data");
+    const x0 = 70, x1 = 740, y0 = 100, y1 = 410, X = v => x0 + (v - 40) / 20 * (x1 - x0);
+    gridLines(g, x0, y0, x1, y1);
+    const mean = D.sum / D.n, sd = Math.sqrt(Math.max(1e-6, D.sq / D.n - mean * mean)), LSL = 42, USL = 58;
+    const cp = (USL - LSL) / (6 * sd), cpk = Math.min(USL - mean, mean - LSL) / (3 * sd);
+    const maxH = Math.max(...D.hist, 1), tot = D.hist.reduce((a, b) => a + b, 0), bw = (x1 - x0) / 20, sy = (y1 - y0) * .85 / maxH;
+    D.hist.forEach((h, i) => { g.fillStyle = "#2f6db3"; g.fillRect(x0 + i * bw + 2, y1 - h * sy, bw - 4, h * sy); });
+    g.strokeStyle = "#ffb04a"; g.lineWidth = 3; g.beginPath();
+    for (let k = 0; k <= 100; k++) { const v = 40 + k * .2, pdf = Math.exp(-.5 * ((v - mean) / sd) ** 2) / (sd * Math.sqrt(2 * Math.PI)); const y = y1 - pdf * tot * sy; k ? g.lineTo(X(v), y) : g.moveTo(X(v), y); }
+    g.stroke();
+    [[LSL, "LSL"], [USL, "USL"]].forEach(([v, t]) => { g.strokeStyle = "#ff5a5a"; g.lineWidth = 2; g.setLineDash([8, 6]); g.beginPath(); g.moveTo(X(v), y0); g.lineTo(X(v), y1); g.stroke(); g.setLineDash([]); g.fillStyle = "#ff5a5a"; g.font = mono(16); g.fillText(t, X(v) - 16, y0 - 6); });
+    g.fillStyle = cpk >= 1.33 ? "#3ddc97" : cpk >= 1 ? "#ffd84d" : "#ff5a5a"; g.font = "600 20px 'JetBrains Mono', monospace";
+    g.fillText(`Cp ${cp.toFixed(2)}   Cpk ${cpk.toFixed(2)}   x̄ ${mean.toFixed(1)}   n ${D.n}`, 26, 452);
+    s.tex.needsUpdate = true;
+  }
+  function drawReg() {
+    const s = SCR.reg, g = chartBase(s, "REGRESSION", "MATLAB · Poisson’s ratio vs re-entrant angle · simulated");
+    const x0 = 90, x1 = 740, y0 = 100, y1 = 400, X = v => x0 + (v - 10) / 30 * (x1 - x0), Y = v => y0 + (-v) / .75 * (y1 - y0);
+    gridLines(g, x0, y0, x1, y1);
+    g.fillStyle = "#6f86a8"; g.font = mono(16); g.fillText("θ (°)", x1 - 40, y1 + 26); g.fillText("ν", x0 - 34, y0 + 10);
+    [10, 20, 30, 40].forEach(v => g.fillText(String(v), X(v) - 10, y1 + 26)); [0, -.25, -.5, -.75].forEach(v => g.fillText(v.toFixed(2), x0 - 70, Y(v) + 5));
+    D.reg.forEach(([x, y]) => { g.fillStyle = "#5aa9ff"; g.beginPath(); g.arc(X(x), Y(y), 6, 0, 7); g.fill(); });
+    if (D.reg.length >= 3) {
+      const n = D.reg.length, mx = D.reg.reduce((a, p) => a + p[0], 0) / n, my = D.reg.reduce((a, p) => a + p[1], 0) / n;
+      const sxy = D.reg.reduce((a, p) => a + (p[0] - mx) * (p[1] - my), 0), sxx = D.reg.reduce((a, p) => a + (p[0] - mx) ** 2, 0);
+      const b = sxy / sxx, a = my - b * mx, ssr = D.reg.reduce((acc, p) => acc + (p[1] - a - b * p[0]) ** 2, 0), sst = D.reg.reduce((acc, p) => acc + (p[1] - my) ** 2, 0);
+      g.strokeStyle = "#ffb04a"; g.lineWidth = 3; g.beginPath(); g.moveTo(X(10), Y(a + b * 10)); g.lineTo(X(40), Y(a + b * 40)); g.stroke();
+      g.fillStyle = "#cfe0ff"; g.font = "600 19px 'JetBrains Mono', monospace";
+      g.fillText(`ν = ${a.toFixed(3)} ${b < 0 ? "−" : "+"} ${Math.abs(b).toFixed(4)}θ    R² = ${(1 - ssr / sst).toFixed(2)}    n = ${n}`, 26, 452);
+    }
+    s.tex.needsUpdate = true;
+  }
+  function drawPareto(prog, t) {
+    const cyc = Math.floor(t / 12);
+    if (cyc !== D.parCycle) {
+      D.parCycle = cyc;
+      D.par = [["Packer dust stoppages", 42], ["Conveyor gap at VRM", 27], ["Idle packer capacity", 15], ["Changeovers", 9], ["Other", 7]]
+        .map(([n, v]) => [n, Math.max(2, v + randn() * 3)]).sort((p, q) => q[1] - p[1]);
+    }
+    const s = SCR.par, g = chartBase(s, "PARETO: DOWNTIME CAUSES", "Excel · minutes lost per shift · simulated data, inspired by the Akij plant visit");
+    const x0 = 100, x1 = 1300, y0 = 100, y1 = 480, tot = D.par.reduce((a, p) => a + p[1], 0), bw = (x1 - x0) / D.par.length;
+    gridLines(g, x0, y0, x1, y1);
+    g.strokeStyle = "#ff5a5a"; g.setLineDash([10, 8]); g.lineWidth = 2; const y80 = y1 - .8 * (y1 - y0);
+    g.beginPath(); g.moveTo(x0, y80); g.lineTo(x1, y80); g.stroke(); g.setLineDash([]); g.fillStyle = "#ff5a5a"; g.font = mono(16); g.fillText("80%", x1 + 8, y80 + 5);
+    let cum = 0; const pts = [];
+    D.par.forEach(([name, v], i) => {
+      const grow = Math.min(1, Math.max(0, prog * D.par.length * 1.2 - i));
+      const h = v / D.par[0][1] * (y1 - y0) * .75 * grow;
+      g.fillStyle = i < 2 ? "#2f6db3" : "#27466f"; g.fillRect(x0 + i * bw + 18, y1 - h, bw - 36, h);
+      g.fillStyle = "#cfe0ff"; g.font = mono(17); g.textAlign = "center";
+      g.fillText(name, x0 + i * bw + bw / 2, y1 + 28); if (grow >= 1) g.fillText(v.toFixed(0), x0 + i * bw + bw / 2, y1 - h - 10);
+      g.textAlign = "left";
+      cum += v; if (grow > 0) pts.push([x0 + i * bw + bw / 2, y1 - cum / tot * (y1 - y0)]);
+    });
+    g.strokeStyle = "#ffb04a"; g.lineWidth = 3; g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke();
+    pts.forEach(([x, y]) => { g.fillStyle = "#ffb04a"; g.beginPath(); g.arc(x, y, 6, 0, 7); g.fill(); });
+    g.fillStyle = "#3ddc97"; g.font = "600 19px 'JetBrains Mono', monospace";
+    const top2 = (D.par[0][1] + D.par[1][1]) / tot * 100;
+    g.fillText(`Top 2 causes = ${top2.toFixed(0)}% of downtime → fix these first`, 26, 556);
+    s.tex.needsUpdate = true;
+  }
+  drawSPC(); drawCap(); drawReg(); drawPareto(1, 0);
+  let dataTick = 0;
+  function updateData(t, dt, near) {
+    if (!near) return;
+    dataTick += dt;
+    if (dataTick > .35) { dataTick = 0; addSample(); regStep(); }
+    if (frameNo % 3 === 0) { drawSPC(); drawCap(); drawReg(); drawPareto(Math.min(1, (t % 12) / 7), t); }
+  }
+  if (document.fonts) document.fonts.ready.then(() => { skillTags.forEach(s => s.userData.redraw()); feaLegend.userData.redraw(); if (layoutIdx >= 0) drawLayout(1); if (chokeIdx >= 0) drawChoke(1); });
+
+
+  /* ---------- the PDCA wheel at the bottom (contact) ---------- */
+  const portalY = yBot - 6;
+  const pdca = new THREE.Group(); pdca.position.y = portalY; scene.add(pdca);
+  const wheel = new THREE.Group(); pdca.add(wheel);
+  const PD = [["PLAN", 0x1c64d8], ["DO", 0xe26a00], ["CHECK", 0x1f9d55], ["ACT", 0x9b3fd1]];
+  const RING = 3.4;
+  function label(text, color, size, font) {
+    const c = document.createElement("canvas"); c.width = 512; c.height = 256;
+    const g = c.getContext("2d"); g.fillStyle = color; g.font = font; g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText(text, 256, 128);
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false }));
+    s.scale.set(size * 2, size, 1); return s;
+  }
+  PD.forEach(([name, hex], k) => {
+    const arc = new THREE.Mesh(new THREE.TorusGeometry(RING, .07, 8, 80, Math.PI / 2 - .22),
+      new THREE.MeshBasicMaterial({ color: hex }));
+    const start = -k * Math.PI / 2 + Math.PI / 2 + .11;     // clockwise from the top
+    arc.rotation.z = start - (Math.PI / 2 - .22);
+    wheel.add(arc);
+    const endA = start - (Math.PI / 2 - .22);
+    const head = new THREE.Mesh(new THREE.ConeGeometry(.2, .45, 16), new THREE.MeshBasicMaterial({ color: hex }));
+    head.position.set(Math.cos(endA) * RING, Math.sin(endA) * RING, 0);
+    head.rotation.z = endA + Math.PI;                         // point along the direction of travel
+    wheel.add(head);
+    const mid = start - (Math.PI / 4 - .11);
+    const tag = label(name, "#" + hex.toString(16).padStart(6, "0"), 1, "600 120px 'JetBrains Mono', monospace");
+    tag.position.set(Math.cos(mid) * (RING + 1.3), Math.sin(mid) * (RING + 1.3), 0);
+    tag.userData.mid = mid;
+    wheel.add(tag);
+  });
+  const kanji = label("改善", "rgba(232,236,241,.28)", 1.9, "700 190px 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif");
+  const kaizen = label("KAIZEN · CONTINUOUS IMPROVEMENT", "#98a2af", .7, "500 30px 'JetBrains Mono', monospace");
+  kaizen.position.y = -1.25;
+  pdca.add(kanji, kaizen);
+  const outer = new THREE.Mesh(new THREE.TorusGeometry(RING + 2.4, .015, 6, 200), new THREE.MeshBasicMaterial({ color: 0x1c64d8, transparent: true, opacity: .35 }));
+  pdca.add(outer);
+
+  /* ---------- camera keyframes, one per scene ---------- */
+  const wide = () => innerWidth > 820;
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  function keyframes() {
+    const w = wide(), k = [];
+    k.push({ pos: V(0, .6, w ? 11 : 15), tgt: V(0, w ? 0 : -2.2, 0), off: w ? .2 : 0 });                    // hero
+    k.push({ pos: PHOTO_POS.clone().multiplyScalar(w ? 2.15 : 2.6).setY(1), tgt: PHOTO_POS.clone().setY(w ? .3 : -.9), off: w ? .2 : 0, photo: true }); // about
+    { const toCenter = LEAN_C.clone().setY(0).normalize().negate();                                 // lean line
+      k.push({ pos: LEAN_C.clone().addScaledVector(toCenter, 9.5).setY(FLOOR_TOP + (w ? 3.4 : 6)),
+               tgt: LEAN_C.clone().setY(FLOOR_TOP + (w ? 1 : -1)), off: w ? .2 : 0 }); }
+    cardData.forEach((d, i) => {
+      const cp = V(Math.cos(d.a) * (R + 8.5), d.y + .6, Math.sin(d.a) * (R + 8.5));
+      k.push({ pos: cp, tgt: d.pos.clone(), off: w ? (i % 2 ? .2 : -.2) : 0, card: i });
+    });
+    { const toC = DATA_C.clone().setY(0).normalize().negate();                                      // data: the control room
+      k.push({ pos: DATA_C.clone().addScaledVector(toC, 7.5).setY(FLOOR_BOT + (w ? 3.3 : 5)), tgt: DATA_C.clone().setY(FLOOR_BOT + (w ? 2.6 : 1.4)), off: w ? .2 : 0 }); }
+    { const ry = yBot * .62;                                                                        // record: up through the steel to a silo
+      k.push({ pos: V(1.5, ry, -8), tgt: V(2.4, ry + 6, -27.4), off: w ? .2 : 0 }); }
+    k.push({ pos: V(0, (yTop + yBot) / 2 + 2, w ? 44 : 58), tgt: V(0, (yTop + yBot) / 2, 0), off: w ? .18 : 0 }); // toolkit
+    k.push({ pos: V(7, yBot - 1, 9), tgt: V(0, yBot + 9, 0), off: w ? -.2 : 0 });                                  // cv: looking up the AS/RS shaft
+    k.push({ pos: V(0, portalY - 1, w ? 16 : 22), tgt: V(0, portalY - (w ? 6.5 : 7.5), 0), off: 0 });           // contact
+    return k;
+  }
+  let KF = keyframes(), posCurve, tgtCurve;
+  function buildCurves() {                                     // one smooth centripetal spline through every camera stop
+    posCurve = new THREE.CatmullRomCurve3(KF.map(k => k.pos), false, "centripetal");
+    tgtCurve = new THREE.CatmullRomCurve3(KF.map(k => k.tgt), false, "centripetal");
+  }
+  buildCurves();
+  applyShadows(scene);
+
+  // opening shot: start high above the plant and settle onto the screw
+  const curPos = reduce ? KF[0].pos.clone() : KF[0].pos.clone().add(new THREE.Vector3(4, 10, 16)), curTgt = reduce ? KF[0].tgt.clone() : new THREE.Vector3(0, -4, 0);
+  const prevPos = curPos.clone(), camRight = new THREE.Vector3(); let roll = 0;
+  let curOff = KF[0].off;
+  const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
+  addEventListener("pointermove", e => { mouse.x = e.clientX / innerWidth * 2 - 1; mouse.y = e.clientY / innerHeight * 2 - 1; }, { passive: true });
+
+  function resize() {
+    renderer.setSize(innerWidth, innerHeight, false);
+    camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+    KF = keyframes(); buildCurves();
+  }
+  addEventListener("resize", resize); resize();
+
+  function sceneProgress() {
+    const mid = scrollY + innerHeight / 2;
+    let i = 0;
+    while (i < scenes.length - 1 && scenes[i + 1].offsetTop <= mid) i++;
+    const top = scenes[i].offsetTop, next = i < scenes.length - 1 ? scenes[i + 1].offsetTop : top + scenes[i].offsetHeight;
+    const f = Math.min(Math.max((mid - top) / (next - top), 0), 1);
+    const hold = .25, t = Math.min(Math.max((f - hold) / (1 - hold), 0), 1);
+    return { i, t: t * t * (3 - 2 * t) };
+  }
+
+  const clock = new THREE.Clock();
+  let lastScroll = scrollY, velocity = 0, intro = 0, lastActive = -1, frameNo = 0;
+  const DATA_SCENE = scenes.findIndex(s => s.id === "data");  const lbl = $("#depthLabel"), dval = $("#depthVal");
+  const tmpP = new THREE.Vector3(), tmpT = new THREE.Vector3(), tmpV = new THREE.Vector3();
+
+  function frame() {
+    const dt = Math.min(clock.getDelta(), .05), time = clock.elapsedTime;
+    const { i, t } = sceneProgress();
+    const a = KF[i], b = KF[Math.min(i + 1, KF.length - 1)];
+    const u = (i + t) / (KF.length - 1);
+    posCurve.getPoint(u, tmpP); tgtCurve.getPoint(u, tmpT);
+    const off = a.off + (b.off - a.off) * t;
+
+    const k = reduce ? 1 : 1 - Math.exp(-dt * 2.6);
+    curPos.lerp(tmpP, k); curTgt.lerp(tmpT, k); curOff += (off - curOff) * k;
+    mouse.sx += (mouse.x - mouse.sx) * (reduce ? 1 : .05); mouse.sy += (mouse.y - mouse.sy) * (reduce ? 1 : .05);
+
+    camera.position.copy(curPos);
+    if (!reduce) {
+      camera.position.x += mouse.sx * .8 + Math.sin(time * .37) * .05;                    // parallax plus a slow handheld drift
+      camera.position.y -= mouse.sy * .5 - Math.sin(time * .29) * .04;
+    }
+    camera.lookAt(curTgt);
+    if (!reduce) {                                                                     // bank gently into lateral moves
+      camRight.setFromMatrixColumn(camera.matrix, 0);
+      const lateral = tmpV.copy(curPos).sub(prevPos).dot(camRight) / Math.max(dt, 1e-3);
+      roll += (Math.max(-.05, Math.min(.05, -lateral * .006)) - roll) * Math.min(1, dt * 3);
+      camera.rotateZ(roll);
+    }
+    prevPos.copy(curPos);
+    if (SHADOWS) { sun.position.copy(curTgt).add(SUN_OFF); sun.target.position.copy(curTgt); }
+    camera.setViewOffset(innerWidth, innerHeight, -curOff * innerWidth, 0, innerWidth, innerHeight);
+
+    velocity += (Math.abs(scrollY - lastScroll) - velocity) * .1; lastScroll = scrollY;
+    intro = Math.min(intro + dt * .7, 1);
+    const ease = reduce ? 1 : 1 - Math.pow(1 - intro, 4);
+
+    // auxetic breathing: stretch cycle, pushed further by fast scrolling
+    const s = reduce ? .3 : Math.min(1, (.5 - .5 * Math.cos(time * 1.1)) * .8 + Math.min(velocity * .01, .4));
+    const { r, len } = buildLattice(s);
+    const sx = r / R0, sy = len / LEN0;
+    inner.scale.set(sx, sy, sx); thread.scale.set(sx, sy, sx);
+    head.position.y = len / 2 + .25; head.scale.set(sx, 1, sx);
+    tip.position.y = tipWire.position.y = -len / 2 - .55; tip.scale.set(sx, 1, sx); tipWire.scale.set(sx, 1, sx);
+    screw.scale.setScalar(ease);
+    screw.rotation.y = reduce ? .6 : time * .25;
+
+    // dimension lines follow the stretch
+    let dR = r, dL = len + 1.35, lenMM = REAL.len * sy, diaMM = REAL.dia * sx, dx = R0 * 1.55 + .9;
+    if (REAL.mesh) {                                        // auxetic breathing on the real model: longer AND wider
+      const ax = 1 + .05 * s, ay = 1 + .1 * s, k = REAL.k;
+      REAL.mesh.scale.set(k * ax, k * ax, k * ay);
+      REAL.fea = (REAL.fea || 0) + (((time % 18) > 9 && !reduce ? 1 : 0) - (REAL.fea || 0)) * Math.min(1, dt * 1.5);   // print model ⇄ FEA contour
+      REAL.u.uFea.value = REAL.fea; REAL.u.uLoad.value = s;
+      feaLegend.material.opacity = REAL.fea;
+      dR = REAL.R * ax; dL = REAL.L * ay; lenMM = REAL.len * ay; diaMM = REAL.dia * ax; dx = REAL.R + .9;
+    }
+    lenDim.position.set(dx, 0, 0); lenDim.scale.set(1, dL, 1);
+    lenLbl.position.set(dx + 1.15, .25, 0); nuLbl.position.set(dx + 1.05, -.45, 0);
+    diaDim.position.set(0, -dL / 2 - .45, 0); diaDim.scale.set(2 * dR, 1, 1);
+    diaLbl.position.set(0, -dL / 2 - .95, 0);
+    dims.scale.setScalar(ease);
+    if ((frameNo++ & 7) === 0) { lenLbl.userData.redraw(lenMM); diaLbl.userData.redraw(diaMM); }
+
+    // plant machinery
+    const mt = reduce ? 0 : time;
+    floaters.forEach(f => { f.position.y = f.userData.y + Math.sin(mt * .8 + f.userData.ph) * .07; });
+    updateExhibits(mt, dt);
+    updateLean(mt, dt);
+    updatePrinter(mt);
+    updateIE(mt, reduce ? 0 : dt);
+    if (chokeIdx >= 0) {
+      if (cards[chokeIdx].userData.u.uFocus.value > .05 && !reduce) { if (frameNo % 3 === 0) drawChoke(Math.min(1, (mt % 16) / 11)); chokeFull = false; }
+      else if (!chokeFull) { drawChoke(1); chokeFull = true; }
+    }
+    updateData(mt, dt, Math.abs(lastActive - DATA_SCENE) <= 1);
+    if (layoutIdx >= 0) {
+      if (cards[layoutIdx].userData.u.uFocus.value > .05 && !reduce) { if (frameNo % 3 === 0) drawLayout(Math.min(1, (mt % 18) / 14)); layoutFull = false; }
+      else if (!layoutFull) { drawLayout(1); layoutFull = true; }
+    }
+
+    photo.quaternion.copy(photoBase);
+    if (!reduce) { photo.rotateY(mouse.sx * .3); photo.rotateX(mouse.sy * .14); photo.position.y = PHOTO_POS.y + Math.sin(time * .8) * .08; }
+    const want = lastActive >= 1 ? 1 : 0;
+    assemble = reduce ? want : Math.min(1, Math.max(0, assemble + dt * (want ? .42 : -.8)));
+    const reveal = Math.min(1, Math.max(0, (assemble - .72) / .28));
+    personU.uTime.value = time; personU.uReveal.value = reveal;
+    ptsU.uP.value = assemble; ptsU.uTime.value = time; ptsU.uReveal.value = reveal;
+    if (photoPts) photoPts.visible = assemble > 0 && reveal < 1;
+
+    wheel.rotation.z = reduce ? 0 : -time * .12;
+    wheel.children.forEach(ch => { if (ch.isSprite) ch.material.rotation = 0; });
+    outer.rotation.x = Math.sin(time * .3) * .15; outer.rotation.y = time * .1;
+
+    const activeCard = (t < .5 ? a : b).card;
+    cards.forEach((m, j) => {
+      const u = m.userData.u;
+      u.uTime.value = time;
+      u.uFocus.value += ((activeCard === j ? 1 : 0) - u.uFocus.value) * .06;
+      m.quaternion.copy(m.userData.base);
+      if (activeCard === j && !reduce) { m.rotateY(mouse.sx * .12); m.rotateX(mouse.sy * .08); }
+    });
+
+    const active = t < .5 ? i : Math.min(i + 1, scenes.length - 1);
+    if (active !== lastActive) {
+      lastActive = active;
+      railLinks.forEach((l, j) => l.classList.toggle("on", j === active)); updateNav(active);
+      lbl.textContent = scenes[active].dataset.label;
+    }
+    dval.textContent = Math.max(0, -camera.position.y * 3).toFixed(1).padStart(5, "0") + " m";
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+} else {
+  canvas.style.background = "radial-gradient(circle at 70% 30%, #262b33, #15181c 60%)";
+}
+</script>
+
+</body>
+</html>
